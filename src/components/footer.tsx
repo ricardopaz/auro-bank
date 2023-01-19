@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { VContainer } from './v-container'
-import { Text, Stack, Divider, ButtonGroup, IconButton, Image, HStack, Flex } from '@chakra-ui/react'
+import { Text, Stack, Divider, ButtonGroup, IconButton, Image, Flex } from '@chakra-ui/react'
 import { IoLogoLinkedin, IoLogoInstagram, IoLogoFacebook, IoMailOutline, IoLogoWhatsapp, IoLocationOutline } from 'react-icons/io5'
 
 export const Footer: React.FC = () => {
@@ -19,10 +19,10 @@ export const Footer: React.FC = () => {
 
         <Stack flex={1} spacing={0} direction={'column'}>
           <FooterLink Icon={IoMailOutline} text="contato@aurobank.com.br" />
-          <FooterLink Icon={IoLogoWhatsapp} text="81 99507-9917" link="https://api.whatsapp.com/send?phone=5581995079917" />
+          <FooterLink Icon={IoLogoWhatsapp} text="81 3132-0403" link="https://api.whatsapp.com/send?phone=558131320403" />
           <FooterLink 
             Icon={IoLocationOutline} 
-            text="Av. Fernando Simoes Barbosa, 266 - Boa Viagem, Recife-PE - Andar 12 Sala 1201" 
+            text="Av. Fernando Simoes Barbosa, 266 - Boa Viagem, Recife-PE - Andar 12 Sala 1202" 
           />
         </Stack>
       </Stack>
@@ -44,21 +44,24 @@ export const Footer: React.FC = () => {
             as={'a'}
             href={'#'}
             color={'white'}
+            target={'_blank'}
             aria-label={'LinkedIn'}
             icon={<IoLogoLinkedin fontSize={'1.25rem'} />}
           />
           <IconButton 
             as={'a'}
-            href={'#'}
             color={'white'}
+            target={'_blank'}
             aria-label={'Instagram'}
+            href={'https://www.instagram.com/aurobank_'}
             icon={<IoLogoInstagram fontSize={'1.25rem'} />} 
           />
           <IconButton 
             as={'a'}
-            href={'#'} 
             color={'white'}
+            target={'_blank'}
             aria-label={'Facebook'} 
+            href={'https://www.facebook.com/aurobank_'}
             icon={<IoLogoFacebook fontSize={'1.25rem'} />} 
           />
         </ButtonGroup>
