@@ -5,7 +5,7 @@ import { Card, CardBody, Image, Grid, GridItem, Heading, Text, VStack, Flex, But
 
 export const Steps: React.FC = () => {
   return (
-    <VContainer px={{ base: 6, sm: 10, md: 24}} py={24} align={'flex-start'} bg={'gray.100'}>
+    <VContainer align={'flex-start'} bg={'gray.100'}>
       <Text fontSize={'1rem'} fontWeight={'black'} textTransform={'uppercase'} color={'primary.500'}>
         passo a passo
       </Text>

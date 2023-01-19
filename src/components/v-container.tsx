@@ -6,8 +6,7 @@ export const VContainer: React.FC<StackProps> = ({ children, ...rest }) => {
   return (
     <Stack w={'100%'} bg={rest.bg} justify={'center'} align={'center'}>
       <VStack 
-        pt={8} 
-        pb={24} 
+        py={24} 
         spacing={8} 
         as={'section'}
         maxW={'1536px'}

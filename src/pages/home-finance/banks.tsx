@@ -5,7 +5,7 @@ import { Card, CardBody, Image, Grid, GridItem, Heading, Text, VStack, Flex, But
 
 export const Banks: React.FC = () => {
   return (
-    <VContainer px={{ base: 6, sm: 10, md: 24}} py={24} align={'flex-start'}>
+    <VContainer align={'flex-start'}>
       <Text fontSize={'1rem'} fontWeight={'black'} textTransform={'uppercase'} color={'primary.500'}>
         Parceiros
       </Text>
