@@ -1,10 +1,11 @@
 import React from 'react'
 
-import { Image, HStack, VStack, Text, Heading, Badge, Grid, GridItem } from '@chakra-ui/react'
+import { HContainer } from '../../components/h-container'
+import { Image, VStack, Text, Heading, Badge, Grid, GridItem } from '@chakra-ui/react'
 
 export const Hero: React.FC = () => {
   return (
-    <HStack as={'section'} px={{ base: 6, sm: 10, md: 24}} pt={8} pb={24} align={'center'} spacing={8}>
+    <HContainer>
       <VStack flex={1} align={'flex-start'} spacing={8}>
         <Badge fontSize={'md'} colorScheme={'secondary'}>
           Financiamento Imobiliário
@@ -43,7 +44,7 @@ export const Hero: React.FC = () => {
       <VStack flex={1} display={{ base: 'none', lg: 'flex' }}>
         <Image src={'hero.svg'} alt={'ilustração de pessoas comprando um imóvel'} />
       </VStack>
-    </HStack>
+    </HContainer>
   )
 }
 

@@ -1,10 +1,11 @@
 import React from 'react'
 
-import { Card, CardBody, Image, Grid, GridItem, Heading, Text, VStack } from '@chakra-ui/react'
+import { VContainer } from '../../components/v-container'
+import { Card, CardBody, Image, Grid, GridItem, Heading, Text, VStack, Flex, Button } from '@chakra-ui/react'
 
-export const About: React.FC = () => {
+export const Steps: React.FC = () => {
   return (
-    <VStack as={'section'} px={{ base: 6, sm: 10, md: 24}} py={24} align={'flex-start'} spacing={8} bg={'gray.100'}>
+    <VContainer px={{ base: 6, sm: 10, md: 24}} py={24} align={'flex-start'} bg={'gray.100'}>
       <Text fontSize={'1rem'} fontWeight={'black'} textTransform={'uppercase'} color={'primary.500'}>
         passo a passo
       </Text>
@@ -33,7 +34,7 @@ export const About: React.FC = () => {
         <StepCard title={'5. Sem Burocracia'} image={'sem-burocracia'} description={'Tudo aprovado! Não será preciso de um despachante, nós iremos facilitar todo o processo.'}/>
         <StepCard title={'6. Pronto!'} image={'pronto'} description={'Liberação do recurso realizada com sucesso.'}/>
       </Grid>
-    </VStack>
+    </VContainer>
   )
 }
 
