@@ -6,23 +6,23 @@ import { IoLogoLinkedin, IoLogoInstagram, IoLogoFacebook, IoMailOutline, IoLogoW
 
 export const Footer: React.FC = () => {
   return (
-    <VContainer as={'footer'} w={'100%'} align={'flex-start'} bg={'primary.700'} color={'white'}>
+    <VContainer as={'footer'} w={'100%'} align={'flex-start'} bg={'primary.700'} color={'white'} py={16}>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 6, md: 0 }} align={'center'}>
         <Stack flex={1} spacing={{ base: '6', md: '8' }} align="start">
           <Image src={'logo-white.svg'} alt={''} h={'30px'} />
           <Text fontSize={'sm'} fontWeight={200}>
             Somos correspondente bancário e seguimos as diretrizes do BACEN, nos termos da Resolução n° 3.954 
-            de 24 de fevereiro de 2011. Sempre nos compometendo com a transparência e oferta do melhor 
-            produto ao cliente.
+            de 24 de fevereiro de 2011. Sempre nos compometendo com a transparência e oferta da melhor 
+            solução para o cliente.
           </Text>
         </Stack>
 
         <Stack flex={1} spacing={0} direction={'column'}>
           <FooterLink Icon={IoMailOutline} text="contato@aurobank.com.br" />
-          <FooterLink Icon={IoLogoWhatsapp} text="81 3132-0403" link="https://api.whatsapp.com/send?phone=558131320403" />
+          <FooterLink Icon={IoLogoWhatsapp} text="(81) 3132-0403" link="https://api.whatsapp.com/send?phone=558131320403" />
           <FooterLink 
             Icon={IoLocationOutline} 
-            text="Av. Fernando Simoes Barbosa, 266 - Boa Viagem, Recife-PE - Andar 12 Sala 1202" 
+            text="Av. Fernando Simões Barbosa, 266 - 12 andar, sala 1202 - Boa Viagem, Recife/PE" 
           />
         </Stack>
       </Stack>
@@ -42,11 +42,11 @@ export const Footer: React.FC = () => {
         <ButtonGroup variant={'ghost'} colorScheme={'primary'}>
           <IconButton
             as={'a'}
-            href={'#'}
             color={'white'}
             target={'_blank'}
             aria-label={'LinkedIn'}
             icon={<IoLogoLinkedin fontSize={'1.25rem'} />}
+            href={'https://www.linkedin.com/company/aurobank'}
           />
           <IconButton 
             as={'a'}

@@ -15,7 +15,7 @@ export const Banks: React.FC = () => {
       </Heading>
 
       <Text w={{ base: '100%', md: '550px' }}>
-        Aqui você simula nos principais bancos do Brasil de uma vez só, tudo sem sair da sua casa.
+        Aqui você simula nos principais bancos do Brasil de uma vez só, tudo de uma forma rápida, prática e 100% digital!
       </Text>
 
       <Flex direction={{ base: 'column', xl: 'row' }} align={'center'}>
@@ -29,10 +29,10 @@ export const Banks: React.FC = () => {
             xl: 'repeat(6, 1fr)',
           }}
         >
-          <BankCard image={'bradesco'} tax={'9.89% a.a'} />
-          <BankCard image={'santander'} tax={'9.99% a.a'} />
-          <BankCard image={'caixa'} tax={'8.95% a.a'} />
-          <BankCard image={'itau'} tax={'9.99% a.a'} size={'35px'} />
+          <BankCard image={'bradesco'} tax={'9,89% a.a*'} />
+          <BankCard image={'santander'} tax={'9,99% a.a*'} />
+          <BankCard image={'caixa'} tax={'8,95% a.a*'} />
+          <BankCard image={'itau'} tax={'9,99% a.a*'} size={'35px'} />
         </Grid>
 
         <Text w={'100%'} px={{ base: 0, md: 20 }} color={'gray.500'} mt={{ base: '30px', xl: 0 }}>

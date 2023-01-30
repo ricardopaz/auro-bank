@@ -13,7 +13,7 @@ export const Menu: React.FC = () => {
         maxW={'1536px'}
         justify={{ base: 'center', md: 'space-between' }} 
       >
-        <Image src={'logo.svg'} alt={'logo da auro bank'} h={'30px'} />
+        <Image src={'logo.svg'} alt={'logo da auro bank'} h={'32px'} />
         <Button colorScheme={'primary'} display={{ base: 'none', md: 'block' }}>
           Simular Financiamento
         </Button>

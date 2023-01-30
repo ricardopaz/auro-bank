@@ -29,9 +29,9 @@ export const Steps: React.FC = () => {
       >
         <StepCard title={'1. Simular'} image={'simular'} description={'Preencha o formulário com os dados da sua simulação.'}/>
         <StepCard title={'2. Assessoria'} image={'assessoria'} description={'Em torno de 20 min um dos nossos assessores entrará em contato com o resultado da sua simulação.'}/>
-        <StepCard title={'3. Documentos'} image={'documentos'} description={'Após aprovação de crédito solicitado, é preciso enviar os docuemntos para análise.'}/>
-        <StepCard title={'4. Analise'} image={'analise'} description={'Documentos aprovados, o banco envia um engenheiro para avaliação do imóvel.'}/>
-        <StepCard title={'5. Sem Burocracia'} image={'sem-burocracia'} description={'Tudo aprovado! Não será preciso de um despachante, nós iremos facilitar todo o processo.'}/>
+        <StepCard title={'3. Documentos'} image={'documentos'} description={'Após aprovação do crédito solicitado, é preciso enviar os documentos para análise.'}/>
+        <StepCard title={'4. Análise'} image={'analise'} description={'Documentos aprovados, o banco envia um engenheiro para avaliação do imóvel.'}/>
+        <StepCard title={'5. Sem Burocracia'} image={'sem-burocracia'} description={'Tudo aprovado! Todo o processo será facilitado pela AuroBank.'}/>
         <StepCard title={'6. Pronto!'} image={'pronto'} description={'Liberação do recurso realizada com sucesso.'}/>
       </Grid>
     </VContainer>

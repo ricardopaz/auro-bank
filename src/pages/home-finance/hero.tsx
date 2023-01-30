@@ -7,7 +7,7 @@ export const Hero: React.FC = () => {
   return (
     <HContainer>
       <VStack flex={1} align={'flex-start'} spacing={8}>
-        <Badge fontSize={'md'} colorScheme={'secondary'}>
+        <Badge fontSize={'lg'} bg={'primary.500'} color={'white'}>
           Financiamento Imobiliário
         </Badge>
         <Heading fontSize={{ base: '3xl', sm: '4xl', xl: '6xl'}}>

@@ -14,17 +14,6 @@ export const CTA: React.FC = () => {
       p={{ base: 10, lg: 16 }}
       flexDirection={{ base: 'column-reverse', md: 'row'}}
     >
-      <Image
-        alt={''} 
-        right={0} 
-        zIndex={0}
-        h={'115%'} 
-        opacity={0.3} 
-        bottom={'-6px'} 
-        src={'/icon-3.svg'} 
-        position={'absolute'} 
-      />
-
       <Button 
         zIndex={1}
         minH={'40px'}
@@ -45,7 +34,7 @@ export const CTA: React.FC = () => {
         sx={{ 'b': { color: 'secondary.500'} }}
         textAlign={{ base: 'center', md: 'left' }}
       >
-        Não perca tempo garanta já seu imóvel simulando em todos os bancos de uma só vez!
+        Não perca tempo! Garanta já seu imóvel simulando em todos os bancos de uma só vez!
       </Text>
     </Flex>
   )
