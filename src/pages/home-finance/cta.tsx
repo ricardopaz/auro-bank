@@ -1,8 +1,15 @@
 import React from 'react'
 
-import { Image, HStack, Text, Button, Divider, Stack, Flex } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { Text, Button, Divider, Flex } from '@chakra-ui/react'
 
 export const CTA: React.FC = () => {
+  const router = useRouter()
+
+  const redirect = () => {
+    router.push('/financiamento/simulacao')
+  }
+  
   return (
     <Flex
       w={'100%'}
@@ -17,6 +24,7 @@ export const CTA: React.FC = () => {
       <Button 
         zIndex={1}
         minH={'40px'}
+        onClick={redirect}
         minW={'250px !important'} 
         colorScheme={'secondary'} 
         size={{ md: 'md', lg: 'lg' }} 

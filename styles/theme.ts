@@ -23,6 +23,6 @@ export const theme = extendTheme({
   },
   fonts: {
     body: "Poppins, Roboto, system-ui, sans-serif",
-    heading: "Noir, Roboto, Georgia, serif",
+    heading: "Noir, Poppins, Roboto, Georgia, serif",
   },
 });

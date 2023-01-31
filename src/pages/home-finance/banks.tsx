@@ -1,9 +1,16 @@
 import React from 'react'
 
+import { useRouter } from 'next/router'
 import { VContainer } from '../../components/v-container'
 import { Card, CardBody, Image, Grid, GridItem, Heading, Text, VStack, Flex, Button } from '@chakra-ui/react'
 
 export const Banks: React.FC = () => {
+  const router = useRouter()
+
+  const redirect = () => {
+    router.push('/financiamento/simulacao')
+  }
+  
   return (
     <VContainer align={'flex-start'}>
       <Text fontSize={'1rem'} fontWeight={'black'} textTransform={'uppercase'} color={'primary.500'}>
@@ -42,7 +49,7 @@ export const Banks: React.FC = () => {
       </Flex>
       
       <Flex w={'100%'} justify={'center'} mt={'50px!important'}>
-        <Button maxW={{ base: '270px', sm: 'fit-content' }} colorScheme={'secondary'} size={'lg'}>
+        <Button maxW={{ base: '270px', sm: 'fit-content' }} colorScheme={'secondary'} size={'lg'} onClick={redirect}>
           Quero comparar os bancos
         </Button>
       </Flex>

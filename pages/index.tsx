@@ -7,8 +7,15 @@ import { CTA } from "../src/pages/home-finance/cta";
 import { Hero } from "../src/pages/home-finance/hero";
 import { Steps } from "../src/pages/home-finance/steps";
 import { Banks } from "../src/pages/home-finance/banks";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter()
+
+  const redirect = () => {
+    router.push('/financiamento/simulacao')
+  }
+
   return (
     <>
       <Head>
@@ -16,7 +23,7 @@ export default function Home() {
       </Head>
 
       <VStack as={'main'} w={'100%'} spacing={0} overflow={'hidden'}>
-        <Menu />
+        <Menu action={redirect} textButton={'Simular financiamento'} />
         <Hero />
         <Steps />
         <CTA />

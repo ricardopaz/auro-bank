@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
     <VContainer as={'footer'} w={'100%'} align={'flex-start'} bg={'primary.700'} color={'white'} py={16}>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 6, md: 0 }} align={'center'}>
         <Stack flex={1} spacing={{ base: '6', md: '8' }} align="start">
-          <Image src={'logo-white.svg'} alt={''} h={'30px'} />
+          <Image src={'/logo-white.svg'} alt={''} h={'30px'} />
           <Text fontSize={'sm'} fontWeight={200}>
             Somos correspondente bancário e seguimos as diretrizes do BACEN, nos termos da Resolução n° 3.954 
             de 24 de fevereiro de 2011. Sempre nos compometendo com a transparência e oferta da melhor 
