@@ -1,20 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 import { STATES } from '../../utils/constants'
 import { Input } from '../../components/form/input'
 import { Select } from '../../components/form/select'
 import { FormContainer } from '../../components/form-container'
-import { Box, Button, Checkbox, CheckboxGroup, FormControl, FormLabel, HStack, Image, Link, Radio, RadioGroup, Stack, Switch, Text, VStack } from '@chakra-ui/react'
+import { isValidEmail, isValidName, isValidPhone } from '../../utils/validators'
+import { Box, Button, Checkbox, CheckboxGroup, FormControl, FormLabel, HStack, Image, Link, Radio, RadioGroup, Stack, Switch, Text, useToast, VStack } from '@chakra-ui/react'
 
 export const FinancyForm: React.FC = () => {
+  const toast = useToast()
+  const router = useRouter()
 
+  const [moment, setMoment] = useState<string>('1')
+  const [useFGTS, setUseFGTS] = useState<boolean>(true)
+  const [needContact, setNeedContact] = useState<boolean>(true)
+
+  const { register, handleSubmit, formState: { errors } } = useForm()
+
+  /** Actions */
+
+  const submit = (form) => {
+    console.log({ ...form, moment, useFGTS, needContact })
+    router.push('/financiamento/sucesso')
+  }
+
+  const submitError = () => {
+    toast({
+      duration: 9000,
+      status: 'error',
+      isClosable: true,
+      title: 'Dados inválidos...',
+      description: 'É preciso informar todos os dados corretamente para poder seguir com o atendimento.',
+    })
+  }
+
+  /** Component */
+  
   return (
-    <Box as={'form'} w={'100%'}>
+    <Box as={'form'} w={'100%'} onSubmit={handleSubmit(submit, submitError)}>
       <FormContainer 
         title='Em que <strong>momento</strong> de compra você está?' 
         subtitle='Conte-nos mais sobre seu momento de compra.'
       >
-        <RadioGroup defaultValue='1'>
+        <RadioGroup value={moment} onChange={value => setMoment(value)}>
           <Stack>
             <Radio value='1'>
               Estou buscando imóveis na internet e ainda não visitei nenhuma
@@ -40,9 +70,11 @@ export const FinancyForm: React.FC = () => {
           name="valor" 
           type="number"
           maxW={'400px'}
-          register={null}
+          errors={errors}
           fontSize={'4xl'}
           placeholder={'R$ 0'}
+          register={register("valor", { required: true })} 
+          validateMessage="É preciso informar o valor do imóvel"
           label={'Qual o valor aproximado do imóvel que deseja financiar?'}
         />
       </FormContainer>
@@ -55,8 +87,9 @@ export const FinancyForm: React.FC = () => {
           flex={1}
           name="state" 
           options={STATES}
-          register={null}
           placeholder={'Selecione um estado'}
+          validateMessage="É preciso informar o estado"
+          register={register("state", { required: true })} 
         />
       </FormContainer>
 
@@ -67,29 +100,34 @@ export const FinancyForm: React.FC = () => {
         <Input
           type="number"
           maxW={'400px'}
-          register={null}
           fontSize={'4xl'}
           name="availableValor" 
           placeholder={'R$ 0'}
           label={'Quanto você tem disponível?'}
+          validateMessage="É preciso informar o valor disponível"
+          register={register("availableValor", { required: true })} 
         />
 
         <FormControl display='flex' alignItems='center'>
           <FormLabel htmlFor='use-fgts' mb='0'>
             Pretende usar seu FGTS?
           </FormLabel>
-          <Switch id='use-fgts' size={'lg'} />
+          <Switch id='use-fgts' size={'lg'} isChecked={useFGTS} onChange={e => setUseFGTS(e.target.checked)} />
         </FormControl>
 
-        <Input
-          type="number"
-          maxW={'400px'}
-          register={null}
-          fontSize={'4xl'}
-          placeholder={'R$ 0'}
-          name="availableValor" 
-          label={'Quanto vai user do seu FGTS?'}
-        />
+        {useFGTS && (
+          <Input
+            type="number"
+            maxW={'400px'}
+            errors={errors}
+            fontSize={'4xl'}
+            placeholder={'R$ 0'}
+            name="availableValorFgts" 
+            label={'Quanto vai user do seu FGTS?'}
+            register={register("availableValorFgts", { required: true })} 
+            validateMessage="É preciso informar o valor que vai usar de FGTS"
+          />
+        )}
       </FormContainer>
 
       <FormContainer 
@@ -196,29 +234,34 @@ export const FinancyForm: React.FC = () => {
           <Stack w={'100%'} direction={{ base: 'column', md: 'row' }} spacing={{ base: 8, md: 24 }}>
             <Input
               maxW={'400px'}
-              register={null}
               fontSize={'4xl'}
+              name={'birthday'} 
               mask={'99/99/9999'}
-              name={'availableValor'} 
               label={'Quando você nasceu?'}
+              register={register("birthday", { required: true })} 
+              validateMessage="É preciso informar a data de nascimento"
             />
             <Input
+              name={'cpf'} 
               maxW={'400px'}
-              register={null}
+              errors={errors}
               fontSize={'4xl'}
               mask={'999.999.999-99'}
-              name={'availableValor'} 
               label={'Qual é o seu CPF?'}
+              validateMessage="É preciso informar o CPF"
+              register={register("cpf", { required: true })} 
             />
           </Stack>
 
           <Input
             maxW={'400px'}
-            register={null}
+            errors={errors}
             type={'number'}
+            name={'income'} 
             fontSize={'4xl'}
-            name={'availableValor'} 
             label={'Qual sua renda mensal aproximadamente?'}
+            register={register("income", { required: true })} 
+            validateMessage="É preciso informar a renda mensal"
             info={'Se for compor o financiamento com mais pessoas, some as rendas e informe-as neste campo.'}
           />
         </VStack>
@@ -230,31 +273,42 @@ export const FinancyForm: React.FC = () => {
       >
         <Input
           w={'100%'}
-          register={null}
+          name={'name'} 
+          errors={errors}
           fontSize={'4xl'}
-          name={'availableValor'} 
           label={'Nome completo'}
+          validateMessage="É preciso informar pelo menos nome e sobrenome"
+          register={register("name", { required: true, validate: isValidName })} 
         />
         <Input
           w={'100%'}
-          register={null}
+          name={'email'} 
+          errors={errors}
           label={'E-mail'}
           fontSize={'4xl'}
-          name={'availableValor'} 
+          validateMessage="É preciso informar um email"
+          register={register("email", { required: true, validate: isValidEmail })} 
         />
         <Input
-          register={null}
+          name={'phone'} 
+          errors={errors}
           fontSize={'4xl'}
           label={'Telefone'}
-          name={'availableValor'} 
           mask={'+99 (99) 99999-9999'}
+          validateMessage="É preciso informar um telefone"
+          register={register("phone", { required: true, validate: isValidPhone })}
         />
 
         <FormControl>
           <FormLabel as='legend' color={'gray.500'}>
             Gostaria da ajuda gratuita de um de nossos especialistas em financiamento imobiliário?
           </FormLabel>
-          <RadioGroup defaultValue='S' size={'lg'} mt={4}>
+          <RadioGroup 
+            mt={4} 
+            size={'lg'} 
+            value={needContact ? 'S' : 'N'} 
+            onChange={value => setNeedContact(value === 'S')}
+          >
             <VStack spacing={4} align={'flex-start'}>
               <Radio value='S'>Sim, por favor.</Radio>
               <Radio value='N'>Ainda não. Estou apenas comparando taxas.</Radio>
@@ -268,6 +322,7 @@ export const FinancyForm: React.FC = () => {
           Ao prosseguir você está de acordo com os <Link>Termos de uso</Link> e nossa <Link>Política de privacidade</Link>
         </Text>
         <Button
+          type={'submit'}
           colorScheme={'secondary'}
           w={{ base: '100%', md: '300px' }}
         >

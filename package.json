@@ -21,7 +21,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.0",
     "react-icons": "^4.7.1",
-    "react-input-mask": "^2.0.4"
+    "react-input-mask": "^2.0.4",
+    "react-useanimations": "^2.10.0"
   },
   "devDependencies": {
     "@types/node": "18.11.18",
