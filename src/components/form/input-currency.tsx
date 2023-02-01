@@ -1,18 +1,18 @@
 import React from 'react'
-import InputMask from "react-input-mask";
+import MaskedInput from 'react-text-mask'
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 import {
+  FormLabel, 
   FormControl, 
   FormHelperText, 
-  FormLabel, 
   Input as InputChakra, 
   InputProps as InputChakraProps 
 } from "@chakra-ui/react"
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-interface InputProps extends InputChakraProps {
+interface InputCurrencyProps extends InputChakraProps {
   name: string;
-  mask?: string;
   label?: string;
   info?: string;
   validateMessage?: string;
@@ -20,10 +20,27 @@ interface InputProps extends InputChakraProps {
   register: UseFormRegisterReturn;
 }
 
-export const Input: React.FC<InputProps> = props => {
-  const { name, mask, label, info, register, errors, validateMessage, ...rest } = props
+const defaultMaskOptions = {
+  prefix: 'R$',
+  suffix: '',
+  includeThousandsSeparator: true,
+  thousandsSeparatorSymbol: '.',
+  allowDecimal: true,
+  decimalSymbol: ',',
+  decimalLimit: 2,
+  integerLimit: 9,
+  allowNegative: false,
+  allowLeadingZeroes: false,
+}
+
+export const InputCurrency: React.FC<InputCurrencyProps> = props => {
+  const { name, label, info, register, errors, validateMessage, ...rest } = props
 
   const hasError = errors && !!errors[name]
+
+  const currencyMask = createNumberMask({
+    ...defaultMaskOptions,
+  })
 
   return (
     <FormControl
@@ -46,22 +63,22 @@ export const Input: React.FC<InputProps> = props => {
         bg="none"
         border={0}
         padding={0}
-        mask={mask}
         height="auto"
         borderRadius={0}
+        as={MaskedInput}
+        mask={currencyMask}
         paddingBottom="0.56rem"
-        as={mask ? InputMask : 'input'}
+        fontSize={rest.fontSize || '1rem'}
         _focusWithin={{ outline: 'none' }}
-        fontSize={rest.fontSize || "1rem"}
         _focusVisible={{ outline: 'none' }}
         status={hasError ? 'red.500' : null}
-        _focus={{ zIndex: 1, borderColor: hasError ? 'red.500' : 'brand.500' }}
         borderBottom={`1px solid ${hasError ? '#e53e3e' : '#565961B5'}`}
+        _focus={{ zIndex: 1, borderColor: hasError ? 'red.500' : 'brand.500' }}
         _placeholder={{ 
-          color: 'gray.400', 
           fontWeight: 600, 
-          fontSize: rest.fontSize ||'1rem', 
-          lineHeight: rest.fontSize ||'1rem' 
+          color: 'gray.400', 
+          fontSize: rest.fontSize || '1rem', 
+          lineHeight: rest.fontSize || '1rem' 
         }}
         {...register}
       />

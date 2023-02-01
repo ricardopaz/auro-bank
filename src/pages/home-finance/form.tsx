@@ -8,6 +8,7 @@ import { Select } from '../../components/form/select'
 import { FormContainer } from '../../components/form-container'
 import { isValidEmail, isValidName, isValidPhone } from '../../utils/validators'
 import { Box, Button, Checkbox, CheckboxGroup, FormControl, FormLabel, HStack, Image, Link, Radio, RadioGroup, Stack, Switch, Text, useToast, VStack } from '@chakra-ui/react'
+import { InputCurrency } from '@/components/form/input-currency'
 
 export const FinancyForm: React.FC = () => {
   const toast = useToast()
@@ -66,12 +67,11 @@ export const FinancyForm: React.FC = () => {
         title='Qual o <strong>valor</strong> do imóvel?' 
         subtitle='Para começar o cálculo precisamos saber o valor da unidade que será financiada.'
       >
-        <Input
-          name="valor" 
-          type="number"
+        <InputCurrency
+          name="valor"
           maxW={'400px'}
           errors={errors}
-          fontSize={'4xl'}
+          fontSize={{ base: 'xl', md: '3xl' }}
           placeholder={'R$ 0'}
           register={register("valor", { required: true })} 
           validateMessage="É preciso informar o valor do imóvel"
@@ -97,12 +97,11 @@ export const FinancyForm: React.FC = () => {
         title='Quanto você tem para dar de <strong>entrada</strong>?' 
         subtitle='O valor da entrada é decisivo para o financiamento do seu imóvel. A partir dela calculamos o valor a financiar.'
       >
-        <Input
-          type="number"
+        <InputCurrency
           maxW={'400px'}
-          fontSize={'4xl'}
-          name="availableValor" 
+          fontSize={{ base: 'xl', md: '3xl' }}
           placeholder={'R$ 0'}
+          name={'availableValor'} 
           label={'Quanto você tem disponível?'}
           validateMessage="É preciso informar o valor disponível"
           register={register("availableValor", { required: true })} 
@@ -116,13 +115,12 @@ export const FinancyForm: React.FC = () => {
         </FormControl>
 
         {useFGTS && (
-          <Input
-            type="number"
+          <InputCurrency
             maxW={'400px'}
             errors={errors}
-            fontSize={'4xl'}
+            fontSize={{ base: 'xl', md: '3xl' }}
             placeholder={'R$ 0'}
-            name="availableValorFgts" 
+            name={'availableValorFgts'} 
             label={'Quanto vai usar do seu FGTS?'}
             register={register("availableValorFgts", { required: true })} 
             validateMessage="É preciso informar o valor que vai usar de FGTS"
@@ -234,7 +232,7 @@ export const FinancyForm: React.FC = () => {
           <Stack w={'100%'} direction={{ base: 'column', md: 'row' }} spacing={{ base: 8, md: 24 }}>
             <Input
               maxW={'400px'}
-              fontSize={'4xl'}
+              fontSize={{ base: 'xl', md: '3xl' }}
               name={'birthday'} 
               mask={'99/99/9999'}
               placeholder={'DD/MM/AAAA'}
@@ -246,7 +244,7 @@ export const FinancyForm: React.FC = () => {
               name={'cpf'} 
               maxW={'400px'}
               errors={errors}
-              fontSize={'4xl'}
+              fontSize={{ base: 'xl', md: '3xl' }}
               mask={'999.999.999-99'}
               label={'Qual é o seu CPF?'}
               placeholder={'000.000.000-00'}
@@ -255,12 +253,11 @@ export const FinancyForm: React.FC = () => {
             />
           </Stack>
 
-          <Input
+          <InputCurrency
             maxW={'400px'}
             errors={errors}
-            type={'number'}
             name={'income'} 
-            fontSize={'4xl'}
+            fontSize={{ base: 'xl', md: '3xl' }}
             placeholder={'R$ 0'}
             label={'Qual sua renda mensal aproximadamente?'}
             register={register("income", { required: true })} 
@@ -278,7 +275,7 @@ export const FinancyForm: React.FC = () => {
           w={'100%'}
           name={'name'} 
           errors={errors}
-          fontSize={'4xl'}
+          fontSize={{ base: 'xl', md: '3xl' }}
           label={'Nome completo'}
           placeholder={'Nome e sobrenome'}
           validateMessage="É preciso informar pelo menos nome e sobrenome"
@@ -289,7 +286,7 @@ export const FinancyForm: React.FC = () => {
           name={'email'} 
           errors={errors}
           label={'E-mail'}
-          fontSize={'4xl'}
+          fontSize={{ base: 'xl', md: '3xl' }}
           placeholder={'seuemail@email.com'}
           validateMessage={'É preciso informar um email'}
           register={register("email", { required: true, validate: isValidEmail })} 
@@ -297,7 +294,7 @@ export const FinancyForm: React.FC = () => {
         <Input
           name={'phone'} 
           errors={errors}
-          fontSize={'4xl'}
+          fontSize={{ base: 'xl', md: '3xl' }}
           label={'Telefone'}
           mask={'(99) 99999-9999'}
           placeholder={'(00) 00000-0000'}
