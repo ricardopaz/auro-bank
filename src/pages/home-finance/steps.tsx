@@ -83,7 +83,7 @@ const StepCard: React.FC<StepCardProps> = ({ image, title, description }) => {
             />
 
             <VStack spacing={4}>
-              <Heading fontSize={'lg'} color={'primary.500'}>
+              <Heading fontSize={'lg'} color={'primary.500'} fontFamily={'Poppins'}>
                 {title}
               </Heading>
               <Text fontSize={'sm'} textAlign={'center'}>

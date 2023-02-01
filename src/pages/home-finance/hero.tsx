@@ -1,9 +1,12 @@
 import React from 'react'
 
 import { HContainer } from '../../components/h-container'
-import { Image, VStack, Text, Heading, Badge, Grid, GridItem } from '@chakra-ui/react'
+import { Image, VStack, Text, Heading, Badge, Grid, GridItem, Button } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 export const Hero: React.FC = () => {
+  const router = useRouter()
+
   return (
     <HContainer mt={16}>
       <VStack flex={1} align={'flex-start'} spacing={8}>
@@ -39,6 +42,16 @@ export const Hero: React.FC = () => {
             <PartnerLogo image={'/banks/inter.png'} />
           </Grid>
         </VStack>
+
+        <Button
+          w={'100%'}
+          size={'lg'}
+          colorScheme={'secondary'}
+          display={{ base: 'block', md: 'none' }}
+          onClick={() => router.push('/financiamento/simular')}
+        >
+          Simule seu financiamento
+        </Button>
       </VStack>
 
       <VStack flex={1} display={{ base: 'none', lg: 'flex' }}>

@@ -18,6 +18,7 @@ export const FormContainer: React.FC<FormContainerProps> = props => {
           <Heading 
             fontWeight={200}
             color={'primary.500'}
+            fontFamily={'Poppins'}
             fontSize={{base: '2xl', md: '5xl'}}
             maxW={{ base: '100%', md: '700px' }}
             dangerouslySetInnerHTML={{ __html: title }}
