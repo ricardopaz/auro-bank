@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Image, Button, HStack, Stack } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 interface MenuProps {
   textButton?: string
@@ -9,10 +10,12 @@ interface MenuProps {
 }
 
 export const Menu: React.FC<MenuProps> = props => {
+  const router = useRouter()
+
   const { colorInverse, textButton, action } = props
   
   return (
-    <Stack w={'100%'} justify={'center'} align={'center'}>
+    <Stack w={'100%'} justify={'center'} align={'center'} bgImage={colorInverse ? '' : '/bg.jpeg'} bgPosition={'center'} bgSize={'cover'}>
       <HStack 
         py={8} 
         px={24} 
@@ -21,11 +24,18 @@ export const Menu: React.FC<MenuProps> = props => {
         maxW={'1536px'}
         justify={{ base: 'center', md: 'space-between' }} 
       >
-        <Image src={colorInverse ? '/logo-white.svg' : '/logo.svg'} alt={'logo da auro bank'} h={'32px'} />
+        <Image 
+          h={'32px'} 
+          cursor={'pointer'}
+          alt={'logo da AuroBank'} 
+          onClick={() => router.push('/')}
+          src={colorInverse ? '/logo-white.svg' : '/logo-white.svg'} 
+        />
         <Button 
+          bg={'white'}
           onClick={action}
-          display={{ base: 'none', md: 'block' }} 
-          colorScheme={colorInverse ? 'whiteAlpha' : 'primary'} 
+          color={'primary.500'}
+          display={{ base: 'none', md: 'block' }}
         >
           {textButton}
         </Button>

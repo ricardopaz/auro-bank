@@ -25,7 +25,7 @@ export const Banks: React.FC = () => {
         Aqui você simula nos principais bancos do Brasil de uma vez só, tudo de uma forma rápida, prática e 100% digital!
       </Text>
 
-      <Flex direction={{ base: 'column', xl: 'row' }} align={'center'}>
+      <Flex direction={{ base: 'column', xl: 'row' }} align={'center'} w={'100%'}>
         <Grid
           w={{base: '100%', md: 'auto' }}
           rowGap={4}
@@ -36,17 +36,19 @@ export const Banks: React.FC = () => {
             xl: 'repeat(6, 1fr)',
           }}
         >
+          <BankCard image={'caixa'} tax={'8,95% a.a*'} />
           <BankCard image={'bradesco'} tax={'9,89% a.a*'} />
           <BankCard image={'santander'} tax={'9,99% a.a*'} />
-          <BankCard image={'caixa'} tax={'8,95% a.a*'} />
           <BankCard image={'itau'} tax={'9,99% a.a*'} size={'35px'} />
+          <BankCard image={'bb'} tax={'10,11% a.a*'} />
+          <BankCard image={'inter'} tax={'10,90% a.a*'} />
         </Grid>
-
-        <Text w={'100%'} px={{ base: 0, md: 20 }} color={'gray.500'} mt={{ base: '30px', xl: 0 }}>
-          * As taxas apresentadas dependem do grau de relacionamento dos clientes com os bancos, 
-          podendo variar para mais ou para menos.
-        </Text>
       </Flex>
+      
+      <Text w={'100%'} color={'gray.500'} mt={{ base: '30px', xl: 0 }} fontSize={'12px'}>
+        * As taxas apresentadas dependem do grau de relacionamento dos clientes com os bancos, 
+        podendo variar para mais ou para menos.
+      </Text>
       
       <Flex w={'100%'} justify={'center'} mt={'50px!important'}>
         <Button maxW={{ base: '270px', sm: 'fit-content' }} colorScheme={'secondary'} size={'lg'} onClick={redirect}>

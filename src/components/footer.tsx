@@ -1,19 +1,21 @@
 import React from 'react'
 
+import { useRouter } from 'next/router'
 import { VContainer } from './v-container'
 import { Text, Stack, Divider, ButtonGroup, IconButton, Image, Flex } from '@chakra-ui/react'
 import { IoLogoLinkedin, IoLogoInstagram, IoLogoFacebook, IoMailOutline, IoLogoWhatsapp, IoLocationOutline } from 'react-icons/io5'
 
 export const Footer: React.FC = () => {
+  const router = useRouter()
+
   return (
     <VContainer as={'footer'} w={'100%'} align={'flex-start'} bg={'primary.700'} color={'white'} py={16}>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 6, md: 0 }} align={'center'}>
         <Stack flex={1} spacing={{ base: '6', md: '8' }} align="start">
-          <Image src={'/logo-white.svg'} alt={''} h={'30px'} />
+          <Image src={'/logo-white.svg'} alt={''} h={'30px'} cursor={'pointer'} onClick={() => router.push('/')} />
           <Text fontSize={'sm'} fontWeight={200}>
             Somos correspondente bancário e seguimos as diretrizes do BACEN, nos termos da Resolução n° 3.954 
-            de 24 de fevereiro de 2011. Sempre nos compometendo com a transparência e oferta da melhor 
-            solução para o cliente.
+            de 24 de fevereiro de 2011. Temos como compromisso a transparência e a busca da melhor solução para o cliente.
           </Text>
         </Stack>
 
@@ -22,7 +24,7 @@ export const Footer: React.FC = () => {
           <FooterLink Icon={IoLogoWhatsapp} text="(81) 3132-0403" link="https://api.whatsapp.com/send?phone=558131320403" />
           <FooterLink 
             Icon={IoLocationOutline} 
-            text="Av. Fernando Simões Barbosa, 266 - 12 andar, sala 1202 - Boa Viagem, Recife/PE" 
+            text="Av. Fernando Simões Barbosa, 266 - 12º andar, sala 1202 - Boa Viagem, Recife/PE" 
           />
         </Stack>
       </Stack>
@@ -36,7 +38,7 @@ export const Footer: React.FC = () => {
         direction={{ base: 'column-reverse', md: 'row' }}
       >
         <Text fontSize="sm" sx={{ 'b': { color: 'secondary.500' } }}>
-          Copyright &copy; {new Date().getFullYear()} <b>Auro Bank</b>. Todos os direito reservados.
+          Copyright &copy; {new Date().getFullYear()} <b>AuroBank</b>. Todos os direito reservados.
         </Text>
 
         <ButtonGroup variant={'ghost'} colorScheme={'primary'}>

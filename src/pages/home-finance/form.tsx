@@ -47,7 +47,7 @@ export const FinancyForm: React.FC = () => {
         <RadioGroup value={moment} onChange={value => setMoment(value)}>
           <Stack>
             <Radio value='1'>
-              Estou buscando imóveis na internet e ainda não visitei nenhuma
+              Estou buscando imóveis na internet e ainda não visitei nenhum
             </Radio>
             <Radio value='2'>
               Estou começando a fazer visita em alguns imóveis
@@ -64,7 +64,7 @@ export const FinancyForm: React.FC = () => {
 
       <FormContainer 
         title='Qual o <strong>valor</strong> do imóvel?' 
-        subtitle='Para começar o cálculo precisamos saber o valor da unidade que será financiada'
+        subtitle='Para começar o cálculo precisamos saber o valor da unidade que será financiada.'
       >
         <Input
           name="valor" 
@@ -123,7 +123,7 @@ export const FinancyForm: React.FC = () => {
             fontSize={'4xl'}
             placeholder={'R$ 0'}
             name="availableValorFgts" 
-            label={'Quanto vai user do seu FGTS?'}
+            label={'Quanto vai usar do seu FGTS?'}
             register={register("availableValorFgts", { required: true })} 
             validateMessage="É preciso informar o valor que vai usar de FGTS"
           />
@@ -227,8 +227,8 @@ export const FinancyForm: React.FC = () => {
 
       <FormContainer 
         title='Conte-nos sobre sua <strong>idade</strong>, <strong>cpf</strong> e <strong>renda</strong>' 
-        subtitle='Sua idade influencia na quantidade de parcelas, já o seu cpf, para validarmos suas informações junto as instituições
-        financeiras e sua renda mensal no valor total que você pode financiar.'
+        subtitle='Sua idade pode influenciar na quantidade de parcelas. O CPF serve para validação das suas informações 
+        junto às instituições financeiras. Já a renda mensal serve para cálculo do valor total que você pode financiar.'
       >
         <VStack spacing={{ base: 8, md: 16 }} align={'flex-start'} w={'100%'}>
           <Stack w={'100%'} direction={{ base: 'column', md: 'row' }} spacing={{ base: 8, md: 24 }}>
@@ -237,6 +237,7 @@ export const FinancyForm: React.FC = () => {
               fontSize={'4xl'}
               name={'birthday'} 
               mask={'99/99/9999'}
+              placeholder={'DD/MM/AAAA'}
               label={'Quando você nasceu?'}
               register={register("birthday", { required: true })} 
               validateMessage="É preciso informar a data de nascimento"
@@ -248,6 +249,7 @@ export const FinancyForm: React.FC = () => {
               fontSize={'4xl'}
               mask={'999.999.999-99'}
               label={'Qual é o seu CPF?'}
+              placeholder={'000.000.000-00'}
               validateMessage="É preciso informar o CPF"
               register={register("cpf", { required: true })} 
             />
@@ -259,6 +261,7 @@ export const FinancyForm: React.FC = () => {
             type={'number'}
             name={'income'} 
             fontSize={'4xl'}
+            placeholder={'R$ 0'}
             label={'Qual sua renda mensal aproximadamente?'}
             register={register("income", { required: true })} 
             validateMessage="É preciso informar a renda mensal"
@@ -277,6 +280,7 @@ export const FinancyForm: React.FC = () => {
           errors={errors}
           fontSize={'4xl'}
           label={'Nome completo'}
+          placeholder={'Nome e sobrenome'}
           validateMessage="É preciso informar pelo menos nome e sobrenome"
           register={register("name", { required: true, validate: isValidName })} 
         />
@@ -286,7 +290,8 @@ export const FinancyForm: React.FC = () => {
           errors={errors}
           label={'E-mail'}
           fontSize={'4xl'}
-          validateMessage="É preciso informar um email"
+          placeholder={'seuemail@email.com'}
+          validateMessage={'É preciso informar um email'}
           register={register("email", { required: true, validate: isValidEmail })} 
         />
         <Input
@@ -294,8 +299,9 @@ export const FinancyForm: React.FC = () => {
           errors={errors}
           fontSize={'4xl'}
           label={'Telefone'}
-          mask={'+99 (99) 99999-9999'}
-          validateMessage="É preciso informar um telefone"
+          mask={'(99) 99999-9999'}
+          placeholder={'(00) 00000-0000'}
+          validateMessage={'É preciso informar um telefone'}
           register={register("phone", { required: true, validate: isValidPhone })}
         />
 
@@ -317,7 +323,7 @@ export const FinancyForm: React.FC = () => {
         </FormControl>
       </FormContainer>
 
-      <FormContainer title='<strong>Tudo pronto.</strong><br /> Vamos ver o resultado?' pb={{ base: 24, md: 48 }}>
+      <FormContainer title='<strong>Tudo pronto.</strong><br /> Vamos ver o resultado?' pb={{ base: 24, md: 24 }}>
         <Text sx={{ 'a': { color: 'secondary.500', fontWeight: 'bold' }}}>
           Ao prosseguir você está de acordo com os <Link>Termos de uso</Link> e nossa <Link>Política de privacidade</Link>
         </Text>

@@ -10,7 +10,7 @@ export const VContainer: React.FC<StackProps> = ({ children, ...rest }) => {
         as={'section'}
         maxW={'1536px'}
         align={'center'}
-        py={{ base: 10, md: 24 }} 
+        py={{ base: 10, md: 12 }} 
         px={{ base: 6, sm: 10, md: 24}}
         {...rest}
       >

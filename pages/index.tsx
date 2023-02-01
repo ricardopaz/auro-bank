@@ -19,12 +19,12 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Auro Bank - Financiamento Imobiliário</title>
+        <title>AuroBank - Financiamento Imobiliário</title>
         <meta name="facebook-domain-verification" content="to94s0qhpodm121cmyj4w9m9wzb8dg" />
       </Head>
 
       <VStack as={'main'} w={'100%'} spacing={0} overflow={'hidden'}>
-        <Menu action={redirect} textButton={'Simular financiamento'} />
+        <Menu action={redirect} textButton={'Simule seu financiamento'} />
         <Hero />
         <Steps />
         <CTA />

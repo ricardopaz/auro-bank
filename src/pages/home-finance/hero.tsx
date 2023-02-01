@@ -5,7 +5,7 @@ import { Image, VStack, Text, Heading, Badge, Grid, GridItem } from '@chakra-ui/
 
 export const Hero: React.FC = () => {
   return (
-    <HContainer>
+    <HContainer mt={16}>
       <VStack flex={1} align={'flex-start'} spacing={8}>
         <Badge fontSize={'lg'} bg={'primary.500'} color={'white'}>
           Financiamento Imobiliário
@@ -50,14 +50,6 @@ export const Hero: React.FC = () => {
 
 const PartnerLogo = ({ image }) => (
   <GridItem justifyContent={'center'}>
-    <Image 
-      alt={''} 
-      h={'20px'} 
-      src={image} 
-      opacity={0.8} 
-      transition={'all 0.3s'}
-      filter={'grayscale(1)'} 
-      _hover={{ filter: 'grayscale(0)', opacity: 1 }} 
-    />
+    <Image alt={''} h={'20px'} src={image} />
   </GridItem>
 )

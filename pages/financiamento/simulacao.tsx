@@ -14,14 +14,14 @@ export default function FinancySimulatorForm() {
   return (
     <>
       <Head>
-        <title>Simulação Financiamento Imobiliário - Auro Bank</title>
+        <title>Simulação Financiamento Imobiliário - AuroBank</title>
       </Head>
 
       <VStack as={'main'} w={'100%'} spacing={0} overflow={'hidden'}>
         <Box w={'100%'} bgImage={'/bg.jpeg'} bgSize={'cover'} bgPosition={'center'}>
-          <Menu colorInverse action={redirect} textButton={'Entrar em contato'} />
+          <Menu colorInverse action={redirect} textButton={'Entre em contato'} />
 
-          <VContainer spacing={4}>
+          <VContainer spacing={4} pt={'40px !important'}>
             <Text 
               color={'white'}
               textAlign={'center'}

@@ -14,7 +14,7 @@ export const Steps: React.FC = () => {
 
       <Text w={{ base: '100%', md: '550px' }} sx={{ 'b': { color: 'secondary.500'} }}>
         O processo é tão simples que em 6 passos você garante seu imóvel. 
-        De forma ágil, 100% digital e com a melhor assessoria da <b>Auro Bank</b>.
+        De forma ágil, 100% digital e com a melhor assessoria da <b>AuroBank</b>.
       </Text>
 
       <Grid
@@ -28,7 +28,7 @@ export const Steps: React.FC = () => {
         }}
       >
         <StepCard title={'1. Simular'} image={'simular'} description={'Preencha o formulário com os dados da sua simulação.'}/>
-        <StepCard title={'2. Assessoria'} image={'assessoria'} description={'Em torno de 20 min um dos nossos assessores entrará em contato com o resultado da sua simulação.'}/>
+        <StepCard title={'2. Assessoria'} image={'assessoria'} description={'Em torno de 20 minutos um dos nossos assessores entrará em contato com o resultado da sua simulação.'}/>
         <StepCard title={'3. Documentos'} image={'documentos'} description={'Após aprovação do crédito solicitado, é preciso enviar os documentos para análise.'}/>
         <StepCard title={'4. Análise'} image={'analise'} description={'Documentos aprovados, o banco envia um engenheiro para avaliação do imóvel.'}/>
         <StepCard title={'5. Sem Burocracia'} image={'sem-burocracia'} description={'Tudo aprovado! Todo o processo será facilitado pela AuroBank.'}/>
