@@ -61,7 +61,7 @@ export const Footer: React.FC = () => {
             color={'white'}
             target={'_blank'}
             aria-label={'Facebook'} 
-            href={'https://www.facebook.com/aurobank_'}
+            href={'https://www.facebook.com/aurobank'}
             icon={<IoLogoFacebook fontSize={'1.25rem'} />} 
           />
         </ButtonGroup>

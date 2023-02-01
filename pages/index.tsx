@@ -20,6 +20,7 @@ export default function Home() {
     <>
       <Head>
         <title>Auro Bank - Financiamento Imobiliário</title>
+        <meta name="facebook-domain-verification" content="to94s0qhpodm121cmyj4w9m9wzb8dg" />
       </Head>
 
       <VStack as={'main'} w={'100%'} spacing={0} overflow={'hidden'}>
