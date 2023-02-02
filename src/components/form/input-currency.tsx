@@ -9,32 +9,33 @@ import {
   Input as InputChakra, 
   InputProps as InputChakraProps 
 } from "@chakra-ui/react"
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { Control, Controller, FieldValues, UseFormRegisterReturn } from 'react-hook-form';
 
 interface InputCurrencyProps extends InputChakraProps {
   name: string;
   label?: string;
   info?: string;
   validateMessage?: string;
-  errors?: { [x: string]: any }
+  errors?: { [x: string]: any };
   register: UseFormRegisterReturn;
+  control: Control<FieldValues, any>;
 }
 
 const defaultMaskOptions = {
-  prefix: 'R$',
   suffix: '',
-  includeThousandsSeparator: true,
-  thousandsSeparatorSymbol: '.',
-  allowDecimal: true,
-  decimalSymbol: ',',
+  prefix: 'R$',
   decimalLimit: 2,
   integerLimit: 9,
+  allowDecimal: true,
+  decimalSymbol: ',',
   allowNegative: false,
   allowLeadingZeroes: false,
+  thousandsSeparatorSymbol: '.',
+  includeThousandsSeparator: true,
 }
 
 export const InputCurrency: React.FC<InputCurrencyProps> = props => {
-  const { name, label, info, register, errors, validateMessage, ...rest } = props
+  const { name, label, info, register, errors, control, validateMessage, ...rest } = props
 
   const hasError = errors && !!errors[name]
 
@@ -56,31 +57,37 @@ export const InputCurrency: React.FC<InputCurrencyProps> = props => {
           {label}
         </FormLabel>
       )}
-      
-      <InputChakra 
-        name={name} 
-        {...rest}
-        bg="none"
-        border={0}
-        padding={0}
-        height="auto"
-        borderRadius={0}
-        as={MaskedInput}
-        mask={currencyMask}
-        paddingBottom="0.56rem"
-        fontSize={rest.fontSize || '1rem'}
-        _focusWithin={{ outline: 'none' }}
-        _focusVisible={{ outline: 'none' }}
-        status={hasError ? 'red.500' : null}
-        borderBottom={`1px solid ${hasError ? '#e53e3e' : '#565961B5'}`}
-        _focus={{ zIndex: 1, borderColor: hasError ? 'red.500' : 'brand.500' }}
-        _placeholder={{ 
-          fontWeight: 600, 
-          color: 'gray.400', 
-          fontSize: rest.fontSize || '1rem', 
-          lineHeight: rest.fontSize || '1rem' 
-        }}
-        {...register}
+
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <InputChakra
+            {...rest}
+            bg="none"
+            border={0}
+            padding={0}
+            height="auto"
+            borderRadius={0}
+            as={MaskedInput}
+            mask={currencyMask}
+            paddingBottom="0.56rem"
+            fontSize={rest.fontSize || '1rem'}
+            _focusWithin={{ outline: 'none' }}
+            _focusVisible={{ outline: 'none' }}
+            status={hasError ? 'red.500' : null}
+            borderBottom={`1px solid ${hasError ? '#e53e3e' : '#565961B5'}`}
+            _focus={{ zIndex: 1, borderColor: hasError ? 'red.500' : 'brand.500' }}
+            _placeholder={{ 
+              fontWeight: 600, 
+              color: 'gray.400', 
+              fontSize: rest.fontSize || '1rem', 
+              lineHeight: rest.fontSize || '1rem' 
+            }}
+            {...rest}
+            {...field}
+          />
+        )}
       />
 
       {info && (

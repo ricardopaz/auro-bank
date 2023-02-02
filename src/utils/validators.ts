@@ -2,7 +2,7 @@ export const isValidName = (name: string) => name.split(' ').length >= 2
 
 export const isValidCpf = (cpf: string) => cpf.replace(/\D/g, "").length === 11
 
-export const isValidPhone = (phone: string) => phone.replace(/\D/g, "").length === 13
+export const isValidPhone = (phone: string) => phone.replace(/\D/g, "").length === 11
 
 export const isValidDate = (date: string) => date.replace(/\D/g, "").length === 8
 

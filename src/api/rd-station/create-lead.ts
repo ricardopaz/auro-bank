@@ -2,10 +2,11 @@ import axios from "axios"
 
 import { findLead, getParams } from "."
 import { getCapitalizeString } from "@/utils/formatter"
+import { customFields } from "@/utils/constants"
 
-export const createRdLead = async ({ name, phone, rdUserId }) => {
+export const createRdLead = async ({ name, cpf, cnpj, rdUserId }) => {
   try {
-    const leadName = `${phone.replace(/\D/g, "")} - ${getCapitalizeString(name)}`
+    const leadName = `${cpf || cnpj} - ${getCapitalizeString(name)}`
     const existsLead = await findLead(leadName)
 
     if (existsLead?._id) return existsLead
@@ -14,7 +15,11 @@ export const createRdLead = async ({ name, phone, rdUserId }) => {
       `${process.env.RD_STATION_URL}/organizations`, 
       getParams({ 
         name: leadName, 
-        user_id: rdUserId || process.env.RD_STATION_DEFAULT_USER
+        user_id: rdUserId || process.env.RD_STATION_DEFAULT_USER,
+        organization_custom_fields: [
+          { value: cpf, custom_field_id: customFields.CPF },
+          { value: cnpj, custom_field_id: customFields.CNPJ },
+        ]
       })
     )
 

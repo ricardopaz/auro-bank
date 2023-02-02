@@ -2,20 +2,21 @@ import axios from "axios"
 
 import { getParams } from "."
 import { findDealByName } from "./find-deals-by-name"
-import { getCapitalizeString } from "@/utils/formatter"
+import { getCapitalizeString, stringToFloat } from "@/utils/formatter"
 import { customFields, fonteMap, productsMap, productsStageMap } from "@/utils/constants"
 
 export const createDeal = async props => {
   try {
     const { 
-      cpf, 
+      cpf,
+      cnpj,
       name, 
       lead, 
-      date, 
       phone,
       email,
       valor,
       product, 
+      birthday, 
       utm_source, 
       utm_campaign, 
     } = props
@@ -23,7 +24,7 @@ export const createDeal = async props => {
     const phoneString = phone.replace(/\D/g, "")
     const dealStage = productsStageMap[product]
     const convertName = getCapitalizeString(name)
-    const dealName = `${phoneString} - ${convertName}`
+    const dealName = `${cpf || cnpj} - ${convertName}`
 
     const { hasDeal } = await findDealByName(dealName)
     
@@ -35,9 +36,9 @@ export const createDeal = async props => {
       phones: [{ phone: phoneString, type: 'cellphone' }] 
     } as any
 
-    if (date) {
-      const [day, month, year] = date.split('/')
-      contact.birthday = { day, month, year }
+    if (birthday) {
+      const [day, month, year] = birthday.split('/')
+      contact.birthday = { day: parseInt(day), month: parseInt(month), year: parseInt(year) }
     }
 
     if (email) {
@@ -51,20 +52,17 @@ export const createDeal = async props => {
         organization: { _id: lead._id },
         deal_products: [{ 
           amount: 1,
-          price: valor || 0,
-          total: valor || 0,
-          base_price: valor || 0,
           _id: productsMap[product],
+          price: stringToFloat(valor) || 0,
+          total: stringToFloat(valor) || 0,
+          base_price: stringToFloat(valor) || 0,
         }],
         campaign: { name: utm_campaign ? utm_campaign : 'Sem Campanha' },
         deal_source: { _id: utm_source ? fonteMap[utm_source] : fonteMap.site },
         deal: {
           name: dealName,
           deal_stage_id: dealStage,
-          user_id: process.env.RD_STATION_DEFAULT_USER, 
-          deal_custom_fields: [
-            // { value: cpf, custom_field_id: customFields.CPF },
-          ] 
+          user_id: process.env.RD_STATION_DEFAULT_USER,
         },
       })
     )

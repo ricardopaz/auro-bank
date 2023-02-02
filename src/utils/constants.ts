@@ -1,3 +1,7 @@
+export const PRODUCT = {
+  FINANCY: 'FINANCY'
+}
+
 //--- RD Station constants
 
 export const fonteMap = {
@@ -7,15 +11,16 @@ export const fonteMap = {
 }
 
 export const productsMap = {
-  FINANCY: '63da787ea993f8000b242acb',
+  [PRODUCT.FINANCY]: '63da787ea993f8000b242acb',
 }
 
 export const productsStageMap = {
-  FINANCY: '63d95b8ea8fe14000c7dc8ad',
+  [PRODUCT.FINANCY]: '63d95b8ea8fe14000c7dc8ad',
 }
 
 export const customFields = {
-  CPF: '',
+  CPF: '63dbfd0b43136c000c30b304',
+  CNPJ: '63dbfd39cedf1b001073acd5',
 }
 
 //--- Form constants

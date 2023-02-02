@@ -1,30 +1,61 @@
+import api from '@/api/index'
 import React, { useState } from 'react'
 
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { STATES } from '../../utils/constants'
+import { Bank, FormBanks } from './form-banks'
 import { Input } from '../../components/form/input'
 import { Select } from '../../components/form/select'
+import { PRODUCT, STATES } from '../../utils/constants'
 import { FormContainer } from '../../components/form-container'
-import { isValidEmail, isValidName, isValidPhone } from '../../utils/validators'
-import { Box, Button, Checkbox, CheckboxGroup, FormControl, FormLabel, HStack, Image, Link, Radio, RadioGroup, Stack, Switch, Text, useToast, VStack } from '@chakra-ui/react'
 import { InputCurrency } from '@/components/form/input-currency'
+import { isValidEmail, isValidName, isValidPhone } from '../../utils/validators'
+import { Box, Button, FormControl, FormLabel, Link, Radio, RadioGroup, Stack, Switch, Text, useToast, VStack } from '@chakra-ui/react'
 
 export const FinancyForm: React.FC = () => {
   const toast = useToast()
   const router = useRouter()
 
+  const [banks, setBanks] = useState<Bank[]>([])
   const [moment, setMoment] = useState<string>('1')
   const [useFGTS, setUseFGTS] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
   const [needContact, setNeedContact] = useState<boolean>(true)
 
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, control, formState: { errors } } = useForm()
 
   /** Actions */
 
-  const submit = (form) => {
-    console.log({ ...form, moment, useFGTS, needContact })
-    router.push('/financiamento/sucesso')
+  const submit = async (form) => {
+    try {
+      setLoading(true)
+
+      const banksList = banks.map(bank => bank.value)
+      const { utm_source, utm_campaign } = router.query
+  
+      await api.post(`/api/leads`, { 
+        ...form, 
+        moment, 
+        useFGTS, 
+        utm_source, 
+        needContact, 
+        utm_campaign, 
+        banks: banksList, 
+        product: PRODUCT.FINANCY
+      })
+  
+      // router.push('/financiamento/sucesso')
+    } catch (error) {
+      toast({
+        duration: 9000,
+        status: 'error',
+        isClosable: true,
+        title: 'Erro ao enviar seus dados',
+        description: 'Infelizmente encontramos uma instabilidade no envio dos seus dados, mas não se preocupe você pode entrar em contato direto pelo nosso WhatsApp (81 3132-0403) enquanto resolvemos este problema.',
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   const submitError = () => {
@@ -45,7 +76,7 @@ export const FinancyForm: React.FC = () => {
         title='Em que <strong>momento</strong> de compra você está?' 
         subtitle='Conte-nos mais sobre seu momento de compra.'
       >
-        <RadioGroup value={moment} onChange={value => setMoment(value)}>
+        <RadioGroup value={moment} onChange={value => setMoment(value)} isDisabled={loading}>
           <Stack>
             <Radio value='1'>
               Estou buscando imóveis na internet e ainda não visitei nenhum
@@ -71,8 +102,10 @@ export const FinancyForm: React.FC = () => {
           name="valor"
           maxW={'400px'}
           errors={errors}
-          fontSize={{ base: 'xl', md: '3xl' }}
+          control={control}
+          isDisabled={loading}
           placeholder={'R$ 0'}
+          fontSize={{ base: 'xl', md: '3xl' }}
           register={register("valor", { required: true })} 
           validateMessage="É preciso informar o valor do imóvel"
           label={'Qual o valor aproximado do imóvel que deseja financiar?'}
@@ -87,6 +120,7 @@ export const FinancyForm: React.FC = () => {
           flex={1}
           name="state" 
           options={STATES}
+          isDisabled={loading}
           placeholder={'Selecione um estado'}
           validateMessage="É preciso informar o estado"
           register={register("state", { required: true })} 
@@ -99,9 +133,11 @@ export const FinancyForm: React.FC = () => {
       >
         <InputCurrency
           maxW={'400px'}
-          fontSize={{ base: 'xl', md: '3xl' }}
+          control={control}
           placeholder={'R$ 0'}
+          isDisabled={loading}
           name={'availableValor'} 
+          fontSize={{ base: 'xl', md: '3xl' }}
           label={'Quanto você tem disponível?'}
           validateMessage="É preciso informar o valor disponível"
           register={register("availableValor", { required: true })} 
@@ -111,16 +147,24 @@ export const FinancyForm: React.FC = () => {
           <FormLabel htmlFor='use-fgts' mb='0'>
             Pretende usar seu FGTS?
           </FormLabel>
-          <Switch id='use-fgts' size={'lg'} isChecked={useFGTS} onChange={e => setUseFGTS(e.target.checked)} />
+          <Switch 
+            size={'lg'} 
+            id='use-fgts' 
+            isChecked={useFGTS} 
+            isDisabled={loading} 
+            onChange={e => setUseFGTS(e.target.checked)} 
+          />
         </FormControl>
 
         {useFGTS && (
           <InputCurrency
             maxW={'400px'}
             errors={errors}
-            fontSize={{ base: 'xl', md: '3xl' }}
+            control={control}
             placeholder={'R$ 0'}
+            isDisabled={loading}
             name={'availableValorFgts'} 
+            fontSize={{ base: 'xl', md: '3xl' }}
             label={'Quanto vai usar do seu FGTS?'}
             register={register("availableValorFgts", { required: true })} 
             validateMessage="É preciso informar o valor que vai usar de FGTS"
@@ -136,91 +180,7 @@ export const FinancyForm: React.FC = () => {
           Selecione os bancos que você possui conta:
         </Text>
 
-        <CheckboxGroup colorScheme='secondary' size={'lg'}>
-          <Stack spacing={{ base: 8, md: 12 }} direction={{ base: 'column', md: 'row' }} w={{ base: '100%', md: '600px', lg: '800px' }}>
-            <Checkbox value='Itaú' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/itau.svg'} alt={'Itaú'} />
-                <Text>Itaú</Text>
-              </HStack>
-            </Checkbox>
-            <Checkbox value='Itaú Uniclass' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/itau.svg'} alt={'Itaú Uniclass'} />
-                <Text>Itaú Uniclass</Text>
-              </HStack>
-            </Checkbox>
-            <Checkbox value='Itaú Personalité' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/itau-personnalite.svg'} alt={'Itaú Personalité'} />
-                <Text>Itaú Personnalité</Text>
-              </HStack>
-            </Checkbox>
-          </Stack>
-          <Stack spacing={{ base: 8, md: 12 }} direction={{ base: 'column', md: 'row' }} w={{ base: '100%', md: '600px', lg: '800px' }}>
-            <Checkbox value='Bradesco' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/bradesco.svg'} alt={'Bradesco'} />
-                <Text>Bradesco</Text>
-              </HStack>
-            </Checkbox>
-            <Checkbox value='Bradesco Classic' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/bradesco-classic.svg'} alt={'Bradesco Classic'} />
-                <Text>Bradesco Classic</Text>
-              </HStack>
-            </Checkbox>
-            <Checkbox value='Bradesco Exclusive' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/bradesco-exclusive.svg'} alt={'Bradesco Exclusive'} />
-                <Text>Bradesco Exclusive</Text>
-              </HStack>
-            </Checkbox>
-          </Stack>
-          <Stack spacing={{ base: 8, md: 12 }} direction={{ base: 'column', md: 'row' }} w={{ base: '100%', md: '600px', lg: '800px' }}>
-            <Checkbox value='Bradesco Prime' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/bradesco-prime.svg'} alt={'Bradesco Prime'} />
-                <Text>Bradesco Prime</Text>
-              </HStack>
-            </Checkbox>
-            <Checkbox value='Santander' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/santander.svg'} alt={'Santander'} />
-                <Text>Santander</Text>
-              </HStack>
-            </Checkbox>
-            <Checkbox value='Caixa' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'15px'} src={'/banks/icon/caixa.svg'} alt={'Caixa'} />
-                <Text>Caixa</Text>
-              </HStack>
-            </Checkbox>
-          </Stack>
-          <Stack spacing={{ base: 8, md: 12 }} direction={{ base: 'column', md: 'row' }} w={{ base: '100%', md: '600px', lg: '800px' }}>
-            <Checkbox value='Banco do Brasil' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/banco-do-brasil.svg'} alt={'Banco do Brasil'} />
-                <Text>Banco do Brasil</Text>
-              </HStack>
-            </Checkbox>
-            <Checkbox value='Inter' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/inter.svg'} alt={'Inter'} />
-                <Text>Inter</Text>
-              </HStack>
-            </Checkbox>
-            <Checkbox value='Banrisul' flex={1}>
-              <HStack align={'center'} spacing={2}>
-                <Image h={'20px'} src={'/banks/icon/banrisul.svg'} alt={'Banrisul'} />
-                <Text>Banrisul</Text>
-              </HStack>
-            </Checkbox>
-          </Stack>
-          <Stack spacing={{ base: 8, md: 12 }} direction={{ base: 'column', md: 'row' }}>
-            <Checkbox value='kakashi'>Outros</Checkbox>
-          </Stack>
-        </CheckboxGroup>
+        <FormBanks {...{ banks, setBanks, isDisabled: loading }} />
       </FormContainer>
 
       <FormContainer 
@@ -232,11 +192,12 @@ export const FinancyForm: React.FC = () => {
           <Stack w={'100%'} direction={{ base: 'column', md: 'row' }} spacing={{ base: 8, md: 24 }}>
             <Input
               maxW={'400px'}
-              fontSize={{ base: 'xl', md: '3xl' }}
-              name={'birthday'} 
+              name={'birthday'}
               mask={'99/99/9999'}
+              isDisabled={loading}
               placeholder={'DD/MM/AAAA'}
               label={'Quando você nasceu?'}
+              fontSize={{ base: 'xl', md: '3xl' }}
               register={register("birthday", { required: true })} 
               validateMessage="É preciso informar a data de nascimento"
             />
@@ -244,10 +205,11 @@ export const FinancyForm: React.FC = () => {
               name={'cpf'} 
               maxW={'400px'}
               errors={errors}
-              fontSize={{ base: 'xl', md: '3xl' }}
+              isDisabled={loading}
               mask={'999.999.999-99'}
               label={'Qual é o seu CPF?'}
               placeholder={'000.000.000-00'}
+              fontSize={{ base: 'xl', md: '3xl' }}
               validateMessage="É preciso informar o CPF"
               register={register("cpf", { required: true })} 
             />
@@ -257,8 +219,10 @@ export const FinancyForm: React.FC = () => {
             maxW={'400px'}
             errors={errors}
             name={'income'} 
-            fontSize={{ base: 'xl', md: '3xl' }}
+            control={control}
+            isDisabled={loading}
             placeholder={'R$ 0'}
+            fontSize={{ base: 'xl', md: '3xl' }}
             label={'Qual sua renda mensal aproximadamente?'}
             register={register("income", { required: true })} 
             validateMessage="É preciso informar a renda mensal"
@@ -275,9 +239,10 @@ export const FinancyForm: React.FC = () => {
           w={'100%'}
           name={'name'} 
           errors={errors}
-          fontSize={{ base: 'xl', md: '3xl' }}
+          isDisabled={loading}
           label={'Nome completo'}
           placeholder={'Nome e sobrenome'}
+          fontSize={{ base: 'xl', md: '3xl' }}
           validateMessage="É preciso informar pelo menos nome e sobrenome"
           register={register("name", { required: true, validate: isValidName })} 
         />
@@ -286,18 +251,20 @@ export const FinancyForm: React.FC = () => {
           name={'email'} 
           errors={errors}
           label={'E-mail'}
-          fontSize={{ base: 'xl', md: '3xl' }}
+          isDisabled={loading}
           placeholder={'seuemail@email.com'}
+          fontSize={{ base: 'xl', md: '3xl' }}
           validateMessage={'É preciso informar um email'}
           register={register("email", { required: true, validate: isValidEmail })} 
         />
         <Input
           name={'phone'} 
           errors={errors}
-          fontSize={{ base: 'xl', md: '3xl' }}
           label={'Telefone'}
+          isDisabled={loading}
           mask={'(99) 99999-9999'}
           placeholder={'(00) 00000-0000'}
+          fontSize={{ base: 'xl', md: '3xl' }}
           validateMessage={'É preciso informar um telefone'}
           register={register("phone", { required: true, validate: isValidPhone })}
         />
@@ -309,6 +276,7 @@ export const FinancyForm: React.FC = () => {
           <RadioGroup 
             mt={4} 
             size={'lg'} 
+            isDisabled={loading}
             value={needContact ? 'S' : 'N'} 
             onChange={value => setNeedContact(value === 'S')}
           >
@@ -326,6 +294,7 @@ export const FinancyForm: React.FC = () => {
         </Text>
         <Button
           type={'submit'}
+          isLoading={loading}
           colorScheme={'secondary'}
           w={{ base: '100%', md: '300px' }}
         >

@@ -22,3 +22,6 @@ export const getQueryDate = (date, isStart?) => {
 
 export const getCapitalizeString = text => 
   text.toLowerCase().replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+
+export const stringToFloat = valor => 
+  parseFloat(valor.replace('R$', '').replace('.', '').replace(',', '.')) 
