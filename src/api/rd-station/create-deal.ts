@@ -2,8 +2,9 @@ import axios from "axios"
 
 import { getParams } from "."
 import { findDealByName } from "./find-deals-by-name"
-import { getCapitalizeString, stringToFloat } from "@/utils/formatter"
-import { customFields, fonteMap, productsMap, productsStageMap } from "@/utils/constants"
+import { getCapitalizeString } from "@/utils/formatter"
+import { getFinancialValor } from "@/pages/home-finance/utils"
+import { fonteMap, productsMap, productsStageMap } from "@/utils/constants"
 
 export const createDeal = async props => {
   try {
@@ -14,11 +15,10 @@ export const createDeal = async props => {
       lead, 
       phone,
       email,
-      valor,
       product, 
       birthday, 
       utm_source, 
-      utm_campaign, 
+      utm_campaign,
     } = props
 
     const phoneString = phone.replace(/\D/g, "")
@@ -45,6 +45,8 @@ export const createDeal = async props => {
       contact.emails = [{ email }]
     }
 
+    const dealValor = getFinancialValor(props)
+
     const { data } = await axios.post(
       `${process.env.RD_STATION_URL}/deals`, 
       getParams({
@@ -52,10 +54,10 @@ export const createDeal = async props => {
         organization: { _id: lead._id },
         deal_products: [{ 
           amount: 1,
+          price: dealValor || 0,
+          total: dealValor || 0,
+          base_price: dealValor || 0,
           _id: productsMap[product],
-          price: stringToFloat(valor) || 0,
-          total: stringToFloat(valor) || 0,
-          base_price: stringToFloat(valor) || 0,
         }],
         campaign: { name: utm_campaign ? utm_campaign : 'Sem Campanha' },
         deal_source: { _id: utm_source ? fonteMap[utm_source] : fonteMap.site },

@@ -54,3 +54,10 @@ export const STATES = [
   'São Paulo',
   'Tocantins',
 ]
+
+export const Moments = {
+  1: 'Estou buscando imóveis na internet e ainda não visitei nenhum',
+  2: 'Estou começando a fazer visita em alguns imóveis',
+  3: 'Estou negociando e devo fazer proposta nos próximos 30 dias',
+  4: 'O proprietário já aceitou minha proposta e devo assinar o contrato em poucos dias',
+}

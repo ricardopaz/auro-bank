@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form'
 import { Bank, FormBanks } from './form-banks'
 import { Input } from '../../components/form/input'
 import { Select } from '../../components/form/select'
-import { PRODUCT, STATES } from '../../utils/constants'
 import { FormContainer } from '../../components/form-container'
 import { InputCurrency } from '@/components/form/input-currency'
+import { Moments, PRODUCT, STATES } from '../../utils/constants'
 import { isValidEmail, isValidName, isValidPhone } from '../../utils/validators'
 import { Box, Button, FormControl, FormLabel, Link, Radio, RadioGroup, Stack, Switch, Text, useToast, VStack } from '@chakra-ui/react'
 
@@ -44,7 +44,7 @@ export const FinancyForm: React.FC = () => {
         product: PRODUCT.FINANCY
       })
   
-      // router.push('/financiamento/sucesso')
+      router.push('/financiamento/sucesso')
     } catch (error) {
       toast({
         duration: 9000,
@@ -78,18 +78,11 @@ export const FinancyForm: React.FC = () => {
       >
         <RadioGroup value={moment} onChange={value => setMoment(value)} isDisabled={loading}>
           <Stack>
-            <Radio value='1'>
-              Estou buscando imóveis na internet e ainda não visitei nenhum
-            </Radio>
-            <Radio value='2'>
-              Estou começando a fazer visita em alguns imóveis
-            </Radio>
-            <Radio value='3'>
-              Estou negociando e devo fazer proposta nos próximos 30 dias
-            </Radio>
-            <Radio value='4'>
-              O proprietário já aceitou minha proposta e devo assinar o contrato em poucos dias
-            </Radio>
+            {Object.keys(Moments).map(value => (
+              <Radio value={value} key={`moment_${value}`}>
+                {Moments[value]}
+              </Radio>
+            ))}
           </Stack>
         </RadioGroup>
       </FormContainer>
