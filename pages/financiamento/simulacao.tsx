@@ -18,7 +18,7 @@ export default function FinancySimulatorForm() {
       </Head>
 
       <VStack as={'main'} w={'100%'} spacing={0} overflow={'hidden'}>
-        <Box w={'100%'} bgImage={'/bg.jpeg'} bgSize={'cover'} bgPosition={'center'}>
+        <Box w={'100%'} bgImage={'/bg.jpg'} bgSize={'cover'} bgPosition={'center'}>
           <Menu colorInverse action={redirect} textButton={'Entre em contato'} />
 
           <VContainer spacing={4} pt={'40px !important'}>

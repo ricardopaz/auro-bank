@@ -15,7 +15,7 @@ export const Menu: React.FC<MenuProps> = props => {
   const { colorInverse, textButton, action } = props
   
   return (
-    <Stack w={'100%'} justify={'center'} align={'center'} bgImage={colorInverse ? '' : '/bg.jpeg'} bgPosition={'center'} bgSize={'cover'}>
+    <Stack w={'100%'} justify={'center'} align={'center'} bgImage={colorInverse ? '' : '/bg.jpg'} bgPosition={'center'} bgSize={'cover'}>
       <HStack 
         py={8} 
         px={24} 

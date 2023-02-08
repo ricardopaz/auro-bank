@@ -21,7 +21,7 @@ export const newLeadContact = async (req: NextApiRequest, res: NextApiResponse):
     // 3 - Create activities if need
     if (rdDeal?._id) {
       switch (data.product) {
-        case PRODUCT.FINANCY:
+        case PRODUCT.FIN_IMOB:
           await createActivitiesForFinancy(rdDeal._id, data)
           break;
       }

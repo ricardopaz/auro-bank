@@ -41,7 +41,7 @@ export const FinancyForm: React.FC = () => {
         needContact, 
         utm_campaign, 
         banks: banksList, 
-        product: PRODUCT.FINANCY
+        product: PRODUCT.FIN_IMOB
       })
   
       router.push('/financiamento/sucesso')

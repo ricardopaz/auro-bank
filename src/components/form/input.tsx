@@ -32,7 +32,7 @@ export const Input: React.FC<InputProps> = props => {
       padding="0.85rem 1.5rem"
       borderLeftWidth="0.125rem"
       width={rest.w || '26rem'}
-      borderColor={ hasError ? 'red.500' : 'primary.500' }
+      borderColor={ hasError ? 'red.500' : rest.borderColor || 'primary.500' }
     >
       {label && (
         <FormLabel color={'secondary.500'}>
@@ -55,8 +55,9 @@ export const Input: React.FC<InputProps> = props => {
         fontSize={rest.fontSize || "1rem"}
         _focusVisible={{ outline: 'none' }}
         status={hasError ? 'red.500' : null}
-        _focus={{ zIndex: 1, borderColor: hasError ? 'red.500' : 'brand.500' }}
+        _focus={{ zIndex: 1, borderColor: hasError ? 'red.500' : 'white' }}
         borderBottom={`1px solid ${hasError ? '#e53e3e' : '#565961B5'}`}
+        borderBottomColor={rest.borderBottomColor}
         _placeholder={{ 
           color: 'gray.400', 
           fontWeight: 600, 

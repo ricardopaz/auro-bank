@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
   const router = useRouter()
 
   return (
-    <VContainer as={'footer'} w={'100%'} align={'flex-start'} bg={'primary.700'} color={'white'} py={16}>
+    <VContainer as={'footer'} w={'100%'} align={'flex-start'} bg={'primary.700'} color={'white'} py={16} zIndex={2}>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 6, md: 0 }} align={'center'}>
         <Stack flex={1} spacing={{ base: '6', md: '8' }} align="start">
           <Image src={'/logo-white.svg'} alt={''} h={'30px'} cursor={'pointer'} onClick={() => router.push('/')} />

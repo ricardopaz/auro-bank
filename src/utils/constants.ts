@@ -1,5 +1,25 @@
 export const PRODUCT = {
-  FINANCY: 'FINANCY'
+  CONTA_CORRENTE: 'CONTA_CORRENTE',
+  CAPITAL_GIRO: 'CAPITAL_GIRO',
+  MAQUININHA: 'MAQUININHA',
+  FIN_IMOB: 'FIN_IMOB',
+  HOME_EQUITY: 'HOME_EQUITY',
+  SEGUROS: 'SEGUROS',
+  CONS_AUTO: 'CONS_AUTO',
+  CONS_IMOB: 'CONS_IMOB',
+  INVEST: 'INVEST',
+}
+
+export const PRODUCTS_LABELS = {
+  CONTA_CORRENTE: 'Conta Corrente',
+  CAPITAL_GIRO: 'Capital de Giro',
+  FIN_IMOB: 'Financiamento Imobiliário',
+  HOME_EQUITY: 'Home Equity',
+  SEGUROS: 'Seguros',
+  CONS_AUTO: 'Consórcio de Automóvel/Moto',
+  CONS_IMOB: 'Consórcio Imobiliário',
+  MAQUININHA: 'Maquininha de Cartão',
+  INVEST: 'Investimentos',
 }
 
 //--- RD Station constants
@@ -11,11 +31,11 @@ export const fonteMap = {
 }
 
 export const productsMap = {
-  [PRODUCT.FINANCY]: '63da787ea993f8000b242acb',
+  [PRODUCT.FIN_IMOB]: '63da787ea993f8000b242acb',
 }
 
 export const productsStageMap = {
-  [PRODUCT.FINANCY]: '63d95b8ea8fe14000c7dc8ad',
+  [PRODUCT.FIN_IMOB]: '63d95b8ea8fe14000c7dc8ad',
 }
 
 export const customFields = {
