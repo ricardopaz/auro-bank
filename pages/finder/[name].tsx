@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import api from '@/api/index';
 import FinderFormCC from '@/pages/finder/form-cc';
+import FinderOnlyPf from '@/pages/finder/form-only-pf';
 import FinderFormOther from '@/pages/finder/form-other';
 import FinderFormCCOther from '@/pages/finder/form-cc-other';
 
@@ -33,8 +34,12 @@ const Finder: React.FC = () => {
   const [products, setProducts] = useState<string[]>([])
   
   const isDisabled = products.length === 0
+
   const hasCC = products.includes(PRODUCT.CONTA_CORRENTE) 
   const isOnlyCC = products.length === 1 && hasCC
+
+  const hasImobFin = products.includes(PRODUCT.FIN_IMOB) 
+  const isOnlyImobFin = products.length === 1 && hasImobFin
 
   const { name } = router.query
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
@@ -146,13 +151,19 @@ const Finder: React.FC = () => {
           </VStack>
 
           <Box as={'form'} w={'100%'} onSubmit={handleSubmit(submit, submitError)}>
+            {isOnlyImobFin && (
+              <FinderOnlyPf register={register} errors={errors} loading={loading} />
+            )}
+
             {isOnlyCC && (
               <FinderFormCC register={register} errors={errors} loading={loading} />
             )}
-            {!isOnlyCC && !hasCC && (
+
+            {!isOnlyImobFin && !isOnlyCC && !hasCC && (
               <FinderFormOther register={register} errors={errors} loading={loading} type={type} setType={setType} />
             )}
-            {!isOnlyCC && hasCC && (
+
+            {!isOnlyImobFin && !isOnlyCC && hasCC && (
               <FinderFormCCOther register={register} errors={errors} loading={loading} type={type} setType={setType} />
             )}
 
