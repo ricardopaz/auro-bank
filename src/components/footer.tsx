@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 import { VContainer } from './v-container'
-import { Text, Stack, Divider, ButtonGroup, IconButton, Image, Flex } from '@chakra-ui/react'
+import { Text, Stack, Divider, ButtonGroup, IconButton, Image, Flex, VStack, HStack } from '@chakra-ui/react'
 import { IoLogoLinkedin, IoLogoInstagram, IoLogoFacebook, IoMailOutline, IoLogoWhatsapp, IoLocationOutline } from 'react-icons/io5'
 
 export const Footer: React.FC = () => {
@@ -13,10 +13,15 @@ export const Footer: React.FC = () => {
       <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 6, md: 0 }} align={'center'}>
         <Stack flex={1} spacing={{ base: '6', md: '8' }} align="start">
           <Image src={'/logo-white.svg'} alt={''} h={'30px'} cursor={'pointer'} onClick={() => router.push('/')} />
-          <Text fontSize={'sm'} fontWeight={200}>
-            Somos correspondente bancário e seguimos as diretrizes do BACEN, nos termos da Resolução n° 3.954 
-            de 24 de fevereiro de 2011. Temos como compromisso a transparência e a busca da melhor solução para o cliente.
-          </Text>
+          <VStack align={'flex-start'}>
+            <Text fontSize={'sm'} fontWeight={200}>
+              AUROBANK SERVICOS FINANCEIROS LTDA - CNPJ: 46.010.192/0001-18
+            </Text>
+            <Text fontSize={'sm'} fontWeight={200}>
+              Somos correspondente bancário e seguimos as diretrizes do BACEN, nos termos da Resolução n° 3.954 
+              de 24 de fevereiro de 2011. Temos como compromisso a transparência e a busca da melhor solução para o cliente.
+            </Text>
+          </VStack>
         </Stack>
 
         <Stack flex={1} spacing={0} direction={'column'}>
