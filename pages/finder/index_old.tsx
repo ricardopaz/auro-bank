@@ -6,23 +6,22 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { Footer } from '@/components/footer'
 import { Input } from '@/components/form/input'
-import { currencyFormatter } from '@/utils/formatter'
 import { IoCheckmarkCircleOutline } from 'react-icons/io5'
 import { isValidName, isValidPhone, isValidEmail } from '@/utils/validators'
-import { Text, Image, Stack, Button, List, ListIcon, ListItem, useToast, Heading, Flex, Radio, RadioGroup, FormControl, FormLabel, HStack, VStack, Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from '@chakra-ui/react'
+import { Text, Image, Stack, Button, List, ListIcon, ListItem, useToast, Heading, Flex, Radio, RadioGroup, FormControl, FormLabel, HStack } from '@chakra-ui/react'
 
 const advantages = [
-  { title: 'Financiamento Imobiliário', message: 'Não se preocupe com a etapa de financiamento, tomamos conta de todo o processo deixando livre seu tempo para vender mais!' },
-  { title: 'Canal Multibanco', message: 'Oferecemos uma plataforma de simulação em vários bancos e buscamos a melhor solução para seu cliente.' },
-  { title: 'Clientes Satisfeios', message: 'Facilitamos todo o processo, viabilizando sua venda e deixando seu cliente mais satisfeito e pronto para fechar mais negócios.' },
-  { title: 'Mais negócios, mais renda!', message: 'Todo cliente que você trouxer e fechar um contrato de financiamento nós pagamos uma comissão.' },
+  { title: 'Atividade complementar e compatível com vários ramos de atuação' },
+  { title: 'Qualidade dos parceiros', message: 'Bancos renomados e com vasta capilaridade de produtos' },
+  { title: 'Diversificação de produtos e serviços', message: 'Oferte soluções 360 graus para qualquer tipo de negócio' },
+  { title: 'Não existe meta de indicação', message: 'Sem amarrações, você ganha o que produz' },
+  { title: 'Comissões acima do mercado', message: 'Nosso foco é criar relações duradouras e lucrativas' },
 ]
 
 const HomeForm: React.FC = () => {
   const toast = useToast()
   const router = useRouter()
 
-  const [valor, setValor] = useState<number>(500000)
   const [hasClients, setHasClients] = useState<boolean>(false)
   const [clientsType, setClientsType] = useState<string>('PJ')
 
@@ -46,7 +45,7 @@ const HomeForm: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>Marco Zero Bank - Seja um Parceiro</title>
+        <title>Marco Zero Bank - Seja um Finder</title>
       </Head>
       
       <Stack 
@@ -85,7 +84,7 @@ const HomeForm: React.FC = () => {
         >
           <Flex borderLeftWidth={2} pl={5} borderColor={'secondary.500'} direction={'column'}>
             <Heading color={'white'} textTransform={'uppercase'}>
-              Seja um Parceiro
+              Seja um Finder
             </Heading>
             <Text color={'white'}>
               Uma parceria lucrativa
@@ -170,7 +169,7 @@ const HomeForm: React.FC = () => {
           flex={2} 
           spacing={12}
           position={'relative'} 
-          py={{ base: 10, xl: 20 }} 
+          py={{ base: 10, xl: 40 }} 
           pr={{ base: 10, xl: 40 }}
           pl={{ base: 10, xl: 0 }}
         >
@@ -179,42 +178,14 @@ const HomeForm: React.FC = () => {
 
             <Flex borderLeftWidth={1} pl={5} borderColor={'secondary.500'} direction={'column'}>
               <Heading color={'white'} textTransform={'uppercase'}>
-                Vantagens<br />de ser parceiro
+                Vantagens<br />de ser Finder
               </Heading>
               <Text color={'white'}>
-                Aumente suas vendas e sua renda!
+                Saiba o porque você precisa ser nosso parceiro(a)
               </Text>
             </Flex>
           </HStack>
-
-          <VStack color={'white'} bg={'primary.700'} borderRadius={'lg'} px={20} py={10}>
-            <Text>Se você vende:</Text>
-            <Heading size={'2xl'}>
-              {currencyFormatter.format(valor)}
-            </Heading>
-
-            <Slider 
-              min={100000} 
-              step={100000}
-              max={10000000} 
-              defaultValue={valor} 
-              onChange={v => setValor(v)}
-            >
-              <SliderTrack bg='secondary.100'>
-                <Box position='relative' right={10} />
-                <SliderFilledTrack bg='primary' />
-              </SliderTrack>
-              <SliderThumb boxSize={6} />
-            </Slider>
-            <Text>você recebe:</Text>
-            <Heading size={'2xl'}>
-              {currencyFormatter.format(250*(valor/100000))}
-            </Heading>
-            <Text fontSize={12}>
-              * R$250,00 a cada R$100.000,00 em financiamentos realizados
-            </Text>
-          </VStack>
-
+          
           <List spacing={4} fontSize={14} mt={'24'} zIndex={2}>
             {advantages.map((adv, index) => (
               <ListItem key={`adv_${index}`} display={'flex'} flexDirection={'row'} alignItems={'flex-start'}>
