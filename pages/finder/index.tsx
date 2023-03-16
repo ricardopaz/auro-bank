@@ -85,10 +85,10 @@ const HomeForm: React.FC = () => {
         >
           <Flex borderLeftWidth={2} pl={5} borderColor={'secondary.500'} direction={'column'}>
             <Heading color={'white'} textTransform={'uppercase'}>
-              Seja um Parceiro
+              Você CORRETOR(A)!
             </Heading>
-            <Text color={'white'}>
-              Uma parceria lucrativa
+            <Text color={'white'} sx={{ 'strong': { color: 'secondary.500' } }}>
+              Não perca tempo e conheça as vantagens de ser parceiro(a) <strong>AuroBank</strong>!
             </Text>
           </Flex>
 
@@ -174,22 +174,34 @@ const HomeForm: React.FC = () => {
           pr={{ base: 10, xl: 40 }}
           pl={{ base: 10, xl: 0 }}
         >
-          <HStack spacing={4}>
+          <Stack spacing={4} direction={{ base: 'column', md: 'row' }} align={'center'}>
             <Image src={'logo-2-white.svg'} alt={''} w={'100px'} />
 
             <Flex borderLeftWidth={1} pl={5} borderColor={'secondary.500'} direction={'column'}>
-              <Heading color={'white'} textTransform={'uppercase'}>
-                Vantagens<br />de ser parceiro
+              <Heading color={'white'} textTransform={'uppercase'} fontSize={{ base: '2xl', md: '3xl' }}>
+                Vantagens<br />de ser um parceiro
               </Heading>
               <Text color={'white'}>
                 Aumente suas vendas e sua renda!
               </Text>
             </Flex>
-          </HStack>
+          </Stack>
 
-          <VStack color={'white'} bg={'primary.700'} borderRadius={'lg'} px={20} py={10}>
+          <List spacing={4} fontSize={14} mt={'24'} zIndex={2}>
+            {advantages.map((adv, index) => (
+              <ListItem key={`adv_${index}`} display={'flex'} flexDirection={'row'} alignItems={'flex-start'}>
+                <ListIcon as={IoCheckmarkCircleOutline} color='secondary.500' fontSize={'24px'} />
+                <Flex direction={'column'}>
+                  <Heading fontSize={20} color={'white'}>{adv.title}</Heading>
+                  {adv.message && <Text color={'white'} opacity={0.6} dangerouslySetInnerHTML={{__html: adv.message}} />}
+                </Flex>
+              </ListItem>
+            ))}
+          </List>
+
+          <VStack color={'white'} bg={'primary.700'} borderRadius={'lg'} px={{ base: 10, md: 20 }} py={10}>
             <Text>Se você vende:</Text>
-            <Heading size={'2xl'}>
+            <Heading size={'lg'}>
               {currencyFormatter.format(valor)}
             </Heading>
 
@@ -210,22 +222,10 @@ const HomeForm: React.FC = () => {
             <Heading size={'2xl'}>
               {currencyFormatter.format(250*(valor/100000))}
             </Heading>
-            <Text fontSize={12}>
+            <Text fontSize={10}>
               * R$250,00 a cada R$100.000,00 em financiamentos realizados
             </Text>
           </VStack>
-
-          <List spacing={4} fontSize={14} mt={'24'} zIndex={2}>
-            {advantages.map((adv, index) => (
-              <ListItem key={`adv_${index}`} display={'flex'} flexDirection={'row'} alignItems={'flex-start'}>
-                <ListIcon as={IoCheckmarkCircleOutline} color='secondary.500' fontSize={'24px'} />
-                <Flex direction={'column'}>
-                  <Heading fontSize={20} color={'white'}>{adv.title}</Heading>
-                  {adv.message && <Text color={'white'} opacity={0.6} dangerouslySetInnerHTML={{__html: adv.message}} />}
-                </Flex>
-              </ListItem>
-            ))}
-          </List>
           
           <Image 
             alt={''}
