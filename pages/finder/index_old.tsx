@@ -45,7 +45,7 @@ const HomeForm: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>Marco Zero Bank - Seja um Finder</title>
+        <title>AuroBank - Seja um Finder</title>
       </Head>
       
       <Stack 

@@ -9,7 +9,7 @@ import { Input } from '@/components/form/input'
 import { currencyFormatter } from '@/utils/formatter'
 import { IoCheckmarkCircleOutline } from 'react-icons/io5'
 import { isValidName, isValidPhone, isValidEmail } from '@/utils/validators'
-import { Text, Image, Stack, Button, List, ListIcon, ListItem, useToast, Heading, Flex, Radio, RadioGroup, FormControl, FormLabel, HStack, VStack, Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from '@chakra-ui/react'
+import { Text, Image, Stack, Button, List, ListIcon, ListItem, useToast, Heading, Flex, Radio, RadioGroup, VStack, Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from '@chakra-ui/react'
 
 const advantages = [
   { title: 'Financiamento Imobiliário', message: 'Não se preocupe com a etapa de financiamento, tomamos conta de todo o processo deixando livre seu tempo para vender mais!' },
@@ -18,19 +18,27 @@ const advantages = [
   { title: 'Mais negócios, mais renda!', message: 'Todo cliente que você trouxer e fechar um contrato de financiamento nós pagamos uma comissão.' },
 ]
 
+const info = [
+  { title: 'Como indicar?', message: '<strong>Preencha o formulário acima</strong> que você receberá um <strong>link</strong> e nele terá todo portifólio de produtos da AuroBank, basta selecionar "Financiamento Imobiliário" e preencher os dados do cliente.' },
+  { title: 'Como atuamos?', message: 'Partindo dessa indicação voltaremos o contato para buscar mais informações e fazer as simulações para seu cliente.' },
+  { title: 'Andamento da proposta', message: 'Depois da indicação, se for do seu interesse, você pode acompanhar todo o processo de perto através do nosso canal do parceiro.' },
+]
+
 const HomeForm: React.FC = () => {
   const toast = useToast()
   const router = useRouter()
 
   const [valor, setValor] = useState<number>(500000)
-  const [hasClients, setHasClients] = useState<boolean>(false)
-  const [clientsType, setClientsType] = useState<string>('PJ')
+  const [type, setType] = useState<string>('PRIVATE')
+  const [loading, setLoading] = useState<boolean>(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 
-  const submit = (form) => {
-    api.post('/api/finders', { ...form, hasClients, clientsType })
+  const submit = async (form) => {
+    setLoading(true)
+    await api.post('/api/finders', { ...form })
     router.push('/finder/resultado')
+    setLoading(false)
   }
 
   const submitError = () => {
@@ -46,7 +54,7 @@ const HomeForm: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>Marco Zero Bank - Seja um Parceiro</title>
+        <title>AuroBank - Corretor Parceiro</title>
       </Head>
       
       <Stack 
@@ -78,13 +86,13 @@ const HomeForm: React.FC = () => {
           justify={'center'}
           borderRadius={'xl'}
           bg={'primary.700'}
-          px={{ base: 2, sm: 10 }} 
-          mx={{ base: 2, sm: 10, xl: 40 }} 
+          px={{ base: 5, sm: 10 }} 
+          mx={{ base: 5, sm: 10, xl: 40 }} 
           my={{ base: 5, sm: 10, xl: 20 }} 
-          py={{ base: 5, sm: 10, xl: 10 }}
+          py={{ base: 10, sm: 10, xl: 10 }}
         >
           <Flex borderLeftWidth={2} pl={5} borderColor={'secondary.500'} direction={'column'}>
-            <Heading color={'white'} textTransform={'uppercase'}>
+            <Heading color={'white'} textTransform={'uppercase'} fontSize={{ base: '2xl', md: '3xl' }}>
               Você CORRETOR(A)!
             </Heading>
             <Text color={'white'} sx={{ 'strong': { color: 'secondary.500' } }}>
@@ -98,6 +106,7 @@ const HomeForm: React.FC = () => {
                 name="name" 
                 color={'white'}
                 errors={errors}
+                isDisabled={loading}
                 placeholder="Nome *"
                 register={register("name", { required: true, validate: isValidName })} 
                 validateMessage="É preciso informar nome e sobrenome separados por espaço"
@@ -107,6 +116,7 @@ const HomeForm: React.FC = () => {
                 type="email"
                 color={'white'}
                 errors={errors}
+                isDisabled={loading}
                 placeholder="Email *" 
                 validateMessage="Email inválido ou incompleto"
                 register={register("email", { required: true, validate: isValidEmail })} 
@@ -116,66 +126,49 @@ const HomeForm: React.FC = () => {
                 type="phone"
                 color={'white'}
                 errors={errors}
+                isDisabled={loading}
                 mask="(99) 99999-9999"
                 placeholder="Telefone (WhatsApp) *"
                 validateMessage="Número inválido ou incompleto"
                 register={register("phone", { required: true, validate: isValidPhone })} 
               />
-              <Input 
-                name="linkedin"
-                color={'white'}
-                placeholder="Linkedin"
-                register={register("linkedin", { required: false })}
-              />
-
-              <FormControl color={'white'} pt={4}>
-                <FormLabel>Possui carteira de clientes?</FormLabel>
-                <RadioGroup 
-                  value={hasClients ? 'S' : 'N'}
-                  onChange={value => setHasClients(value === 'S')} 
-                >
-                  <Stack direction='row' spacing={4}>
-                    <Radio value='S'>Sim</Radio>
-                    <Radio value='N'>Não</Radio>
-                  </Stack>
-                </RadioGroup>
-              </FormControl>
-
-              {hasClients && (
-                <FormControl color={'white'} pt={4}>
-                  <FormLabel>A carteira é de?</FormLabel>
-                  <RadioGroup value={clientsType} onChange={value => setClientsType(value)}>
-                    <Stack direction='row' spacing={4}>
-                      <Radio value='PJ'>PJ</Radio>
-                      <Radio value='PF'>PF</Radio>
-                      <Radio value='Ambos'>Ambos</Radio>
-                    </Stack>
-                  </RadioGroup>
-                </FormControl>
-              )}
             </Stack>
             
             <Button 
               width={'100%'}
-              type="submit"
-              marginTop="2.35rem"
+              type={'submit'}
+              isLoading={loading}
+              marginTop={'2.35rem'}
               textTransform={'uppercase'}
             >
               Iniciar Parceria
             </Button>
           </form>
+
+          <List spacing={4} fontSize={14} mt={'24'} zIndex={2}>
+            {info.map((info, index) => (
+              <ListItem key={`info_${index}`} display={'flex'} flexDirection={'row'} alignItems={'flex-start'}>
+                <ListIcon as={IoCheckmarkCircleOutline} color='secondary.500' fontSize={'24px'} />
+                <Flex direction={'column'}>
+                  <Heading fontSize={20} color={'white'}>{info.title}</Heading>
+                  {info.message && <Text color={'white'} opacity={0.6} dangerouslySetInnerHTML={{__html: info.message}} />}
+                </Flex>
+              </ListItem>
+            ))}
+          </List>
         </Stack>
 
         <Stack 
           flex={2} 
           spacing={12}
           position={'relative'} 
-          py={{ base: 10, xl: 20 }} 
-          pr={{ base: 10, xl: 40 }}
-          pl={{ base: 10, xl: 0 }}
+          py={{ base: 5, xl: 20 }} 
+          pr={{ base: 5, xl: 40 }}
+          pl={{ base: 5, xl: 0 }}
         >
-          <Stack spacing={4} direction={{ base: 'column', md: 'row' }} align={'center'}>
-            <Image src={'logo-2-white.svg'} alt={''} w={'100px'} />
+          <Stack spacing={{ base: 8, md: 4 }} direction={{ base: 'column', md: 'row' }} align={'center'}>
+            <Image src={'logo-2-white.svg'} alt={''} w={'100px'} display={{ base: 'none', md: 'block' }} />
+            <Image src={'logo-white.svg'} alt={''} w={'180px'} display={{ base: 'block', md: 'none' }} />
 
             <Flex borderLeftWidth={1} pl={5} borderColor={'secondary.500'} direction={'column'}>
               <Heading color={'white'} textTransform={'uppercase'} fontSize={{ base: '2xl', md: '3xl' }}>
@@ -199,11 +192,18 @@ const HomeForm: React.FC = () => {
             ))}
           </List>
 
-          <VStack color={'white'} bg={'primary.700'} borderRadius={'lg'} px={{ base: 10, md: 20 }} py={10}>
-            <Text>Se você vende:</Text>
+          <VStack color={'white'} bg={'primary.700'} borderRadius={'lg'} px={{ base: 10, md: 20 }} py={10} spacing={4}>
+            <Text>Se você trás em financiamento:</Text>
             <Heading size={'lg'}>
               {currencyFormatter.format(valor)}
             </Heading>
+
+            <RadioGroup onChange={setType} value={type} colorScheme={'secondary'}>
+              <Stack direction='row'>
+                <Radio value='PRIVATE'>Banco privado</Radio>
+                <Radio value='PUBLIC'>Banco público</Radio>
+              </Stack>
+            </RadioGroup>
 
             <Slider 
               min={100000} 
@@ -220,7 +220,7 @@ const HomeForm: React.FC = () => {
             </Slider>
             <Text>você recebe:</Text>
             <Heading size={'2xl'}>
-              {currencyFormatter.format(250*(valor/100000))}
+              {currencyFormatter.format((type === 'PUBLIC' ? 200 : 250)*(valor/100000))}
             </Heading>
             <Text fontSize={10}>
               * R$250,00 a cada R$100.000,00 em financiamentos realizados

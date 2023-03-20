@@ -11,7 +11,7 @@ const Feedback: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Marco Zero Bank</title>
+        <title>AuroBank</title>
       </Head>
 
       <Flex 
