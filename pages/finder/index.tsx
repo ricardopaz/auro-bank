@@ -218,13 +218,20 @@ const HomeForm: React.FC = () => {
               </SliderTrack>
               <SliderThumb boxSize={6} />
             </Slider>
+            
             <Text>você recebe:</Text>
             <Heading size={'2xl'}>
               {currencyFormatter.format((type === 'PUBLIC' ? 200 : 250)*(valor/100000))}
             </Heading>
-            <Text fontSize={10}>
-              * R$250,00 a cada R$100.000,00 em financiamentos realizados
-            </Text>
+
+            <VStack>
+              <Text fontSize={10}>
+                * R$250,00 a cada R$100.000,00 em financiamentos realizados em <strong>bancos privados.</strong>
+              </Text>
+              <Text fontSize={10}>
+                * R$200,00 a cada R$100.000,00 em financiamentos realizados em <strong>bancos públicos.</strong>
+              </Text>
+            </VStack>
           </VStack>
           
           <Image 
