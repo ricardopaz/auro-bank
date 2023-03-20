@@ -193,7 +193,7 @@ const HomeForm: React.FC = () => {
           </List>
 
           <VStack color={'white'} bg={'primary.700'} borderRadius={'lg'} px={{ base: 10, md: 20 }} py={10} spacing={4}>
-            <Text>Se você trás em financiamento:</Text>
+            <Text>Se você traz em financiamento:</Text>
             <Heading size={'lg'}>
               {currencyFormatter.format(valor)}
             </Heading>
