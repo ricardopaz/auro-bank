@@ -43,14 +43,14 @@ const HomeForm: React.FC = () => {
   }
 
   return (
-    <>
+    <div>
       <Head>
-        <title>AuroBank - Indique um Finder</title>
+        <title>AuroBank - Seja um Finder</title>
       </Head>
       
       <Stack 
         id="form"
-        minH={'100vh'} 
+        minH={'100vh'}
         bg={'primary.500'}
         overflow={'hidden'}
         spacing={{ base: 2, xl: 6 }} 
@@ -75,16 +75,16 @@ const HomeForm: React.FC = () => {
           zIndex={2}
           spacing={12}
           justify={'center'}
-          bg={'primary.700'}
           borderRadius={'xl'}
+          bg={'primary.700'}
           px={{ base: 2, sm: 10 }} 
           mx={{ base: 2, sm: 10, xl: 40 }} 
           my={{ base: 5, sm: 10, xl: 20 }} 
           py={{ base: 5, sm: 10, xl: 10 }}
         >
-          <Flex borderLeftWidth={2} pl={5} borderColor={'brand'} direction={'column'}>
+          <Flex borderLeftWidth={2} pl={5} borderColor={'secondary.500'} direction={'column'}>
             <Heading color={'white'} textTransform={'uppercase'}>
-              Indique um Finder
+              Seja um Finder
             </Heading>
             <Text color={'white'}>
               Uma parceria lucrativa
@@ -94,26 +94,18 @@ const HomeForm: React.FC = () => {
           <form onSubmit={handleSubmit(submit, submitError)}>
             <Stack spacing="0.62rem">
               <Input 
-                name="nameOwner" 
-                errors={errors}
-                color={'white'}
-                placeholder="Nome do Assessor *"
-                register={register("nameOwner", { required: true, validate: isValidName })} 
-                validateMessage="É preciso informar nome e sobrenome separados por espaço"
-              />
-              <Input 
                 name="name" 
-                errors={errors}
                 color={'white'}
-                placeholder="Nome do Finder *"
+                errors={errors}
+                placeholder="Nome *"
                 register={register("name", { required: true, validate: isValidName })} 
                 validateMessage="É preciso informar nome e sobrenome separados por espaço"
               />
               <Input 
                 name="email" 
                 type="email"
-                errors={errors}
                 color={'white'}
+                errors={errors}
                 placeholder="Email *" 
                 validateMessage="Email inválido ou incompleto"
                 register={register("email", { required: true, validate: isValidEmail })} 
@@ -121,8 +113,8 @@ const HomeForm: React.FC = () => {
               <Input 
                 name="phone" 
                 type="phone"
-                errors={errors}
                 color={'white'}
+                errors={errors}
                 mask="(99) 99999-9999"
                 placeholder="Telefone (WhatsApp) *"
                 validateMessage="Número inválido ou incompleto"
@@ -182,13 +174,14 @@ const HomeForm: React.FC = () => {
           pl={{ base: 10, xl: 0 }}
         >
           <HStack spacing={4}>
-            <Image src={'/logo-2-white.svg'} alt={''} w={'100px'} />
+            <Image src={'logo-2-white.svg'} alt={''} w={'100px'} />
+
             <Flex borderLeftWidth={1} pl={5} borderColor={'secondary.500'} direction={'column'}>
               <Heading color={'white'} textTransform={'uppercase'}>
-                Vantagens<br />de indicar um Finder
+                Vantagens<br />de ser Finder
               </Heading>
               <Text color={'white'}>
-                Saiba o porque o finder precisa ser nosso parceiro(a)
+                Saiba o porque você precisa ser nosso parceiro(a)
               </Text>
             </Flex>
           </HStack>
@@ -221,7 +214,7 @@ const HomeForm: React.FC = () => {
       </Stack>
 
       <Footer />
-    </>
+    </div>
   )
 }
 

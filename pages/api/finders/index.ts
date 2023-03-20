@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await sendEmail({
         html: htmlToSend,
         to: process.env.MAIL_TO.toString().split(','), 
-        subject: `[Marco Zero Bank][Novo Finder] ${name}`, 
+        subject: `[AuroBank][Novo Finder] ${name}`, 
       });
     default:
       res.setHeader("Allow", [HttpMethod.POST]);
