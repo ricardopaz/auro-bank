@@ -80,16 +80,16 @@ const HomeForm: React.FC = () => {
         }}
       >
         <Stack 
+          py={10}
           flex={1} 
           zIndex={2}
           spacing={12}
           justify={'center'}
           borderRadius={'xl'}
           bg={'primary.700'}
-          px={{ base: 5, sm: 10 }} 
-          mx={{ base: 5, sm: 10, xl: 40 }} 
-          my={{ base: 5, sm: 10, xl: 20 }} 
-          py={{ base: 10, sm: 10, xl: 10 }}
+          px={{ base: 2, sm: 5 }} 
+          mx={{ base: 2, sm: 5, xl: 40 }} 
+          my={{ base: 2, sm: 5, xl: 20 }} 
         >
           <Flex borderLeftWidth={2} pl={5} borderColor={'secondary.500'} direction={'column'}>
             <Heading color={'white'} textTransform={'uppercase'} fontSize={{ base: '2xl', md: '3xl' }}>
@@ -141,7 +141,7 @@ const HomeForm: React.FC = () => {
               marginTop={'2.35rem'}
               textTransform={'uppercase'}
             >
-              Iniciar Parceria
+              Saiba como!
             </Button>
           </form>
 
@@ -162,9 +162,9 @@ const HomeForm: React.FC = () => {
           flex={2} 
           spacing={12}
           position={'relative'} 
-          py={{ base: 5, xl: 20 }} 
-          pr={{ base: 5, xl: 40 }}
-          pl={{ base: 5, xl: 0 }}
+          py={{ base: 2, sm: 5, xl: 20 }} 
+          pr={{ base: 2, sm: 5, xl: 40 }}
+          pl={{ base: 2, sm: 5, xl: 0 }}
         >
           <Stack spacing={{ base: 8, md: 4 }} direction={{ base: 'column', md: 'row' }} align={'center'}>
             <Image src={'logo-2-white.svg'} alt={''} w={'100px'} display={{ base: 'none', md: 'block' }} />
@@ -233,19 +233,6 @@ const HomeForm: React.FC = () => {
               </Text>
             </VStack>
           </VStack>
-          
-          <Image 
-            alt={''}
-            right={0} 
-            zIndex={1}
-            h={'400px'} 
-            opacity={0.1} 
-            w={'fit-content'} 
-            bottom={'-100px'} 
-            m={'0!important'} 
-            src={'abstr-1.png'} 
-            position={'absolute'} 
-          />
         </Stack>
       </Stack>
 
