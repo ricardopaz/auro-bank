@@ -22,12 +22,10 @@ const HomeForm: React.FC = () => {
           left={0}
           w={'100%'}
           h={'100%'}
-          opacity={0.3}
           position={'absolute'}
           backgroundSize={'cover'}
-          backgroundImage={'/bg.jpg'}
-          backgroundPosition={'50% 0'}
           backgroundRepeat={'no-repeat'}
+          backgroundImage={'/hero-movie.gif'}
         />
         <Box zIndex={1}>
           <Menu colorInverse action={redirect} textButton={'Dúvidas? Fale Conosco!'} />
