@@ -8,9 +8,11 @@ import FinderFormCCOther from '@/pages/finder/form-cc-other';
 import { 
   Box,
   Text, 
+  Flex,
   Stack, 
   Image, 
   VStack,
+  HStack,
   Button,
   Heading, 
   useToast,
@@ -41,12 +43,12 @@ const Finder: React.FC = () => {
   const hasImobFin = products.includes(PRODUCT.FIN_IMOB) 
   const isOnlyImobFin = products.length === 1 && hasImobFin
 
-  const { name } = router.query
+  const { name, partner } = router.query
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
   const submit = (form) => {
     setLoading(true)
-    const body = { ...form, finder: name, products }
+    const body = { ...form, finder: name, products, partner }
 
     const filterBody = Object.keys(body).reduce((map, data) => {
       if (body[data]) map[data] = body[data]
@@ -76,7 +78,15 @@ const Finder: React.FC = () => {
 
   const Header: React.FC = () => (
     <>
-      <Image src='/logo-circle.png' alt="" w={'60px'} />
+      <HStack mb={'20px'} alignItems={'center'} gap={{ base: '10px', md: '20px' }}>
+        <Image src='/logo-white.svg' alt="" h={{ base: '15px', md: '25px' }} />
+        {partner && (
+          <>
+            <Flex color={'white'} fontSize={'2xl'}>+</Flex>
+            <Image src={`/${partner}.png`} alt="" h={{ base: '15px', md: '25px' }} />
+          </>
+        )}
+      </HStack>
       <VStack align={'flex-start'} alignSelf={'flex-start'}>
         <Heading color={'white'} textTransform={'uppercase'}>
           Olá, {name}!
@@ -103,7 +113,9 @@ const Finder: React.FC = () => {
         content: '""',
         top: 0,
         left: 0,
-        opacity: 0.3,
+        filter: 'auto',
+        blur: '20px',
+        opacity: 0.5,
         width: '100%',
         height: '100%',
         display: 'block',
@@ -119,7 +131,7 @@ const Finder: React.FC = () => {
       </Head>
       
       {step === 1 && (
-        <VStack zIndex={2} spacing={8} maxW={{ base: '100%', md: '400px' }}>
+        <VStack zIndex={2} spacing={8} maxW={{ base: '100%', md: '460px' }} p={{ md: '30px' }} borderRadius={{ md: '20px' }} boxShadow={{ md: '2xl' }}>
           <Header />
           <SelectProduct products={products} setProducts={setProducts} />
           <Button 
@@ -136,7 +148,7 @@ const Finder: React.FC = () => {
       )}
 
       {step === 2 && (
-        <VStack zIndex={2} spacing={6} maxW={{ base: '100%', md: '400px' }}>
+        <VStack zIndex={2} spacing={6} maxW={{ base: '100%', md: '460px' }} p={{ md: '30px' }} borderRadius={{ md: '20px' }} boxShadow={{ md: '2xl' }}>
           <Header />
 
           <VStack w={'100%'} color={'white'} align={'flex-start'}>
@@ -170,6 +182,7 @@ const Finder: React.FC = () => {
             <Button 
               width={'100%'}
               type={'submit'}
+              color={'primary.500'}
               isLoading={loading}
               marginTop={'2.35rem'}
               textTransform={'uppercase'}
@@ -177,7 +190,7 @@ const Finder: React.FC = () => {
               Solicitar
             </Button>
 
-            <Button mt={'20px'} width={'100%'} onClick={() => setStep(1)} variant={'outline'} colorScheme={'whiteAlpha'}>
+            <Button mt={'20px'} width={'100%'} onClick={() => setStep(1)} variant={'outline'} colorScheme={'whiteAlpha'} borderColor={'white'} color={'white'}>
               Adicionar mais produtos
             </Button>
           </Box>
@@ -185,7 +198,7 @@ const Finder: React.FC = () => {
       )}
 
       {step === 3 && (
-        <VStack zIndex={2} spacing={6} align={'center'} color={'white'} maxW={{ base: '100%', md: '400px' }}>
+        <VStack zIndex={2} spacing={6} align={'center'} color={'white'} maxW={{ base: '100%', md: '460px' }} p={{ md: '30px' }} borderRadius={{ md: '20px' }} boxShadow={{ md: '2xl' }}>
           <IoCheckmarkCircleOutline size={80} />
           <Heading size={'lg'}>Solicitação Enviada</Heading>
           <Text>
@@ -204,8 +217,6 @@ const Finder: React.FC = () => {
           </Button>
         </VStack>
       )}
-
-      <Image src={'/logo-white.svg'} h={'20px'} alt={''} mt={6} zIndex={2}/>
     </Stack>
   )
 }

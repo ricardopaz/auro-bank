@@ -35,7 +35,7 @@ export const Input: React.FC<InputProps> = props => {
       borderColor={ hasError ? 'red.500' : rest.borderColor || 'primary.500' }
     >
       {label && (
-        <FormLabel color={'secondary.500'}>
+        <FormLabel color={'secondary.200'}>
           {label}
         </FormLabel>
       )}
@@ -56,7 +56,7 @@ export const Input: React.FC<InputProps> = props => {
         _focusVisible={{ outline: 'none' }}
         status={hasError ? 'red.500' : null}
         _focus={{ zIndex: 1, borderColor: hasError ? 'red.500' : 'white' }}
-        borderBottom={`1px solid ${hasError ? '#e53e3e' : '#565961B5'}`}
+        borderBottom={`1px solid ${hasError ? '#e53e3e' : '#ffffff90'}`}
         borderBottomColor={rest.borderBottomColor}
         _placeholder={{ 
           color: 'gray.400', 
