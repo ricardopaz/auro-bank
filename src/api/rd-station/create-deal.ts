@@ -41,7 +41,7 @@ export const createDeal = async props => {
       }
     }
 
-    const finderName = finder !== 'undefined' ? `${finder}${partner !== 'undefined' && ` (${partner})`}` : ''
+    const finderName = finder ? `${finder}${partner ? ` (${partner})` : ''}` : ''
 
     const { data } = await axios.post(
       `${process.env.RD_STATION_URL}/deals`, 
