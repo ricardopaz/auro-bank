@@ -4,9 +4,10 @@ import { findLead, getParams } from "."
 import { getCapitalizeString } from "@/utils/formatter"
 import { customFields } from "@/utils/constants"
 
-export const createRdLead = async ({ name, cpf, cnpj, rdUserId }) => {
+export const createRdLead = async props => {
   try {
-    const leadName = `${cpf || cnpj} - ${getCapitalizeString(name)}`
+    const { name, namepf, namepj, cpf, cnpj, rdUserId } = props
+    const leadName = `${cpf || cnpj} - ${getCapitalizeString(name || namepf || namepj)}`
     const existsLead = await findLead(leadName)
 
     if (existsLead?._id) return existsLead
