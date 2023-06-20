@@ -41,6 +41,8 @@ export const createDeal = async props => {
       }
     }
 
+    const finderName = finder !== 'undefined' ? `${finder}${partner !== 'undefined' && ` (${partner})`}` : ''
+
     const { data } = await axios.post(
       `${process.env.RD_STATION_URL}/deals`, 
       getParams({
@@ -60,8 +62,8 @@ export const createDeal = async props => {
           deal_stage_id: dealStage,
           user_id: process.env.RD_STATION_DEFAULT_USER,
           deal_custom_fields: [
+            { custom_field_id: customFields.FINDER, value: finderName },
             { custom_field_id: customFields.PRODUCT_DETAILS, value: PRODUCTS_LABELS[product] },
-            { custom_field_id: customFields.FINDER, value: `${finder}${partner && ` (${partner})`}` },
           ]
         },
       })
