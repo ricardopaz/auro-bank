@@ -16,7 +16,8 @@ export const createDeal = async props => {
       namepj,
       namepf,
       finder,
-      lead, 
+      lead,
+      partner,
       product,  
       utm_source, 
       utm_campaign,
@@ -26,9 +27,9 @@ export const createDeal = async props => {
     const convertName = getCapitalizeString(name || namepf || namepj)
     const dealName = `${cpf || cnpj} - ${convertName}`
 
-    const { hasDeal } = await findDealByName(dealName, dealStage)
-    
-    if (hasDeal) return null
+    // TODO - This code will be removed to create more than onde deal whe has group of products as "Seguros"
+    // const { hasDeal } = await findDealByName(dealName, dealStage)
+    // if (hasDeal) return null
 
     const contact = await getContect(props)
 
@@ -59,8 +60,8 @@ export const createDeal = async props => {
           deal_stage_id: dealStage,
           user_id: process.env.RD_STATION_DEFAULT_USER,
           deal_custom_fields: [
-            { custom_field_id: customFields.FINDER, value: finder },
             { custom_field_id: customFields.PRODUCT_DETAILS, value: PRODUCTS_LABELS[product] },
+            { custom_field_id: customFields.FINDER, value: `${finder}${partner && ` (${partner})`}` },
           ]
         },
       })
