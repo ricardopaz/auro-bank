@@ -178,7 +178,7 @@ const Finder: React.FC = () => {
       <Button 
         width={'100%'} 
         onClick={newRequest}
-        color={'secondary.500'}
+        color={'primary.500'}
         textTransform={'uppercase'}
         rightIcon={<IoAddOutline />}
       >
@@ -195,7 +195,8 @@ const Finder: React.FC = () => {
       
       <VStack 
         zIndex={2} 
-        spacing={8} 
+        spacing={8}
+        color={'white'} 
         p={{ md: '30px' }} 
         boxShadow={{ md: '2xl' }}
         borderRadius={{ md: '20px' }} 

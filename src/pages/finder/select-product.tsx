@@ -9,7 +9,6 @@ interface SelectProducts {
 }
 
 export const SelectProduct: React.FC<SelectProducts> = ({ products, setProducts }) => {
-
   const onChange = (product, isChecked) => {
     if (isChecked) {
       setProducts(products.filter(prod => prod !== product))
@@ -18,25 +17,25 @@ export const SelectProduct: React.FC<SelectProducts> = ({ products, setProducts 
     }
   }
 
+  const getProduct = product => {
+    const isChecked = products.includes(product)
+    return (
+      <Checkbox
+        size={'lg'}
+        key={product}
+        color={'white'}
+        colorScheme={'secondary'}
+        isChecked={isChecked}
+        onChange={() => onChange(product, isChecked)}
+      >
+        {PRODUCTS_LABELS[product]}
+      </Checkbox>
+    )
+  }
+
   return (
     <VStack alignItems="flex-start" w={'100%'}>
-      {Object.keys(PRODUCT).map(
-        product => {
-          const isChecked = products.includes(product)
-          return (
-            <Checkbox
-              size={'lg'}
-              key={product}
-              color={'white'}
-              colorScheme={'secondary'}
-              isChecked={isChecked}
-              onChange={() => onChange(product, isChecked)}
-            >
-              {PRODUCTS_LABELS[product]}
-            </Checkbox>
-          )
-        }
-      )}
+      {Object.keys(PRODUCT).map(getProduct)}
     </VStack>
   )
 }

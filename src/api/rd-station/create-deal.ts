@@ -4,7 +4,7 @@ import { getParams } from "."
 import { findDealByName } from "./find-deals-by-name"
 import { getCapitalizeString } from "@/utils/formatter"
 import { getFinancialValor } from "@/pages/home-finance/utils"
-import { PRODUCT, fonteMap, productsMap, productsStageMap } from "@/utils/constants"
+import { PRODUCT, PRODUCTS_LABELS, customFields, fonteMap, productsMap, productsStageMap } from "@/utils/constants"
 
 export const createDeal = async props => {
   try {
@@ -15,6 +15,7 @@ export const createDeal = async props => {
       valor,
       namepj,
       namepf,
+      finder,
       lead, 
       product,  
       utm_source, 
@@ -57,6 +58,10 @@ export const createDeal = async props => {
           name: dealName,
           deal_stage_id: dealStage,
           user_id: process.env.RD_STATION_DEFAULT_USER,
+          deal_custom_fields: [
+            { custom_field_id: customFields.FINDER, value: finder },
+            { custom_field_id: customFields.PRODUCT_DETAILS, value: PRODUCTS_LABELS[product] },
+          ]
         },
       })
     )
